@@ -36,12 +36,12 @@ const InvestorHero = () => {
   );
 };
 
-const PropertyCard = ({ image, location, title, returnRate }) => {
+const PropertyCard = ({ image, location, title, returnRate, category, id }) => {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
     window.scrollTo(0, 0);
-    navigate("/investor-form");
+    navigate(`/projects/${category}/${id}`);
   };
 
   return (
@@ -93,18 +93,21 @@ const RealEstateSection = () => {
       location: "Selangor, Malaysia",
       title: "Student Housing",
       returnRate: "5% Est. Annual Return",
+      id: "student-housing",
     },
     {
       image: re2,
       location: "KL EcoCity, Kuala Lumpur",
       title: "Viaa Residences",
       returnRate: "8.5% Est Annual Return",
+      id: "viaa-residences",
     },
     {
       image: re3,
       location: "KLCC, Kuala Lumpur",
       title: "Face Suites",
       returnRate: "9% Est Annual Return",
+      id: "face-suites",
     },
   ];
 
@@ -130,6 +133,8 @@ const RealEstateSection = () => {
               location={property.location}
               title={property.title}
               returnRate={property.returnRate}
+              category="real-estate"
+              id={property.id}
             />
           ))}
         </div>
@@ -145,18 +150,21 @@ const GreenEnergySection = () => {
       location: "EcoEnergy",
       title: "Wind Rural Electrification",
       returnRate: "6.8% Est Annual return",
+      id: "wind-rural",
     },
     {
       image: hydro,
       location: "Malaysia",
       title: "Hydro Power Expansion",
       returnRate: "8% Est Annual return",
+      id: "hydro-power",
     },
     {
       image: solarpanel,
       location: "Africa & Asia",
       title: "SolarGrid Initiative",
       returnRate: "7.5% Est Annual Return",
+      id: "solar-grid",
     },
   ];
 
@@ -182,6 +190,8 @@ const GreenEnergySection = () => {
               location={project.location}
               title={project.title}
               returnRate={project.returnRate}
+              category="green-energy"
+              id={project.id}
             />
           ))}
         </div>
@@ -218,6 +228,8 @@ const GoldDinarSection = () => {
             location={project.location}
             title={project.title}
             returnRate={project.returnRate}
+            category="gold"
+            id="gold-dinar"
           />
         </div>
       </div>

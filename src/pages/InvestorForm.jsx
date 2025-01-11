@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const InvestorFormHero = () => {
   const [status, setStatus] = useState("");
+  const location = useLocation();
+  const projectDetails = location.state?.projectDetails || "";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -102,10 +105,27 @@ const InvestorFormHero = () => {
 
               <div>
                 <label
+                  htmlFor="amount"
+                  className="block text-text-secondary text-lg mb-3"
+                >
+                  Investment Amount (RM)
+                </label>
+                <input
+                  type="text"
+                  name="amount"
+                  id="amount"
+                  required
+                  className="w-full bg-transparent border-b border-text-secondary/30 px-0 py-3 text-text-primary focus:border-gold focus:outline-none transition-colors text-lg placeholder:text-text-secondary/50"
+                  placeholder="1,000"
+                />
+              </div>
+
+              <div>
+                <label
                   htmlFor="investment"
                   className="block text-text-secondary text-lg mb-3"
                 >
-                  Interested to invest in: (Asset or Project and amount)
+                  Interested to invest in: (Asset or Project)
                 </label>
                 <textarea
                   name="investment"
@@ -114,6 +134,7 @@ const InvestorFormHero = () => {
                   required
                   className="w-full bg-transparent border-b border-text-secondary/30 px-0 py-3 text-text-primary focus:border-gold focus:outline-none transition-colors text-lg placeholder:text-text-secondary/50 resize-none"
                   placeholder="Please type your message here..."
+                  defaultValue={projectDetails}
                 />
               </div>
 
