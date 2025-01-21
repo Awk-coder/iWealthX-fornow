@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const ActionCard = ({ title, description, buttonText }) => {
+const ActionCard = ({ title, description, buttonText, path }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="relative group rounded-3xl bg-black/30 p-12 transition-all duration-500 hover:shadow-2xl hover:shadow-gold/20">
       {/* Content */}
@@ -11,7 +14,10 @@ const ActionCard = ({ title, description, buttonText }) => {
         <p className="text-text-primary text-lg leading-relaxed mb-8 opacity-90">
           {description}
         </p>
-        <button className="mt-auto bg-gold text-background px-8 py-4 rounded-lg text-lg font-medium hover:bg-opacity-90 transition-all w-fit">
+        <button
+          onClick={() => navigate(path)}
+          className="mt-auto bg-gold text-background px-8 py-4 rounded-lg text-lg font-medium hover:bg-opacity-90 transition-all w-fit"
+        >
           {buttonText}
         </button>
       </div>
@@ -29,12 +35,14 @@ const GetStarted = () => {
       description:
         "Start generating income by listing your real-world assets. Unlock the potential of your assets and grow your wealth today!",
       buttonText: "Tokenize Now",
+      path: "/asset-owner",
     },
     {
       title: "Are you an Investor?",
       description:
         "Seize the opportunity to invest in our curated list of real-world assets. Own, earn, and grow your wealth today!",
       buttonText: "Invest Now",
+      path: "/investor",
     },
   ];
 
@@ -59,6 +67,7 @@ const GetStarted = () => {
               title={option.title}
               description={option.description}
               buttonText={option.buttonText}
+              path={option.path}
             />
           ))}
         </div>
