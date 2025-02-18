@@ -13,7 +13,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
     {
       title: "Investor",
       description: "Invest in tokenized assets",
-      path: "/investor-form",
+      path: "/investor",
     },
     {
       title: "Partner",

@@ -365,9 +365,9 @@ const Investor = () => {
   return (
     <div className="bg-background min-h-screen">
       <InvestorHero />
-      <RealEstateSection />
-      <GreenEnergySection />
       <GoldDinarSection />
+      <GreenEnergySection />
+      <RealEstateSection />
       <HowItWorksSection />
       <ChangeWorldSection />
     </div>
