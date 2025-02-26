@@ -172,7 +172,7 @@ const GreenEnergySection = () => {
     {
       image: health,
       location: "India",
-      title: "Mujtaba Health Charity Token",
+      title: "Health Card Token",
       returnRate: "No Returns - Charity",
       id: "mujtaba-health-charity",
     },   
