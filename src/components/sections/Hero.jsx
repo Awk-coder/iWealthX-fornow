@@ -7,7 +7,7 @@ const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section className="pt-48 pb-64 bg-background min-h-[70vh]">
+    <section className="pt-48 pb-16 bg-background min-h-[70vh]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           {/* Left content */}

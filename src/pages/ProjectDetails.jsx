@@ -98,6 +98,118 @@ const ProjectDetails = () => {
     ],
     "green-energy": [
       {
+        id: "agro-waste-energy",
+        location: "Putrajaya, Malaysia",
+        title: "Agro Waste to Energy",
+        returnRate: "7.2% Est Annual Return",
+        images: {
+          main: require("../assets/energy images/4/1.png"),
+          secondary: require("../assets/energy images/4/2.png"),
+        },
+        description:
+          "This project converts agricultural waste into energy-efficient pellets, reducing carbon emissions and promoting renewable energy adoption. It supports local farmers by providing an additional income stream while ensuring a sustainable energy source.",
+        details: [
+          "Waste-to-energy technology",
+          "Reduces agricultural waste",
+          "Sustainable biomass fuel",
+          "Supports local farmers",
+          "Eco-friendly energy solution",
+          "Growing demand for biomass",
+          "Government incentives",
+          "Long-term sustainability",
+        ],
+        investment: {
+          minimum: "RM 1,000",
+          target: "RM 10,000,000",
+          term: "8 years",
+          type: "Green energy token",
+        },
+      },
+      {
+        id: "sme-green-energy",
+        location: "Malaysia",
+        title: "SME Green Energy Transition",
+        returnRate: "8.5% Est Annual Return",
+        images: {
+          main: require("../assets/energy images/5/1.png"),
+          secondary: require("../assets/energy images/5/2.png"),
+        },
+        description:
+          "This initiative helps SMEs transition to green energy by installing solar panels at no upfront cost, reducing carbon footprints and lowering long-term electricity expenses. The project ensures sustainable energy adoption among small businesses.",
+        details: [
+          "Solar energy adoption",
+          "Zero upfront cost for SMEs",
+          "Reduces electricity bills",
+          "Supports green energy transition",
+          "Government-backed incentives",
+          "Long-term sustainability",
+          "High energy savings potential",
+          "Environmentally responsible investment",
+        ],
+        investment: {
+          minimum: "RM 500",
+          target: "RM 7,500,000",
+          term: "12 years",
+          type: "Solar energy token",
+        },
+      },
+      {
+        id: "waqf-solar-surau",
+        location: "Bangi, Malaysia",
+        title: "Waqf Solar for Surau",
+        returnRate: "No Returns - Charity",
+        images: {
+          main: require("../assets/energy images/6/1.png"),
+          secondary: require("../assets/energy images/6/2.png"),
+        },
+        description:
+          "This Waqf initiative funds solar panel installations for a surau in Bangi, reducing electricity costs and promoting sustainable energy use. Contributors support a long-term charitable cause with no expected financial returns.",
+        details: [
+          "Islamic Waqf-based charity",
+          "Funds renewable energy for surau",
+          "No financial returns expected",
+          "Supports community sustainability",
+          "Reduces electricity costs for places of worship",
+          "Encourages renewable energy adoption",
+          "Long-term impact",
+          "Faith-based giving opportunity",
+        ],
+        investment: {
+          minimum: "RM 100",
+          target: "RM 500,000",
+          term: "N/A",
+          type: "Charity token",
+        },
+      },
+      {
+        id: "mujtaba-health-charity",
+        location: "India",
+        title: "Mujtaba Health Charity Token",
+        returnRate: "No Returns - Charity",
+        images: {
+          main: require("../assets/energy images/7/1.png"),
+          secondary: require("../assets/energy images/7/2.png"),
+        },
+        description:
+          "This charity token funds health cards for underprivileged families, providing 20-50% discounts at select hospitals. The initiative ensures accessible healthcare for those who cannot afford the annual fee of 1,000 PKR per family.",
+        details: [
+          "Provides health access to low-income families",
+          "Covers a family of six",
+          "Discounts on medical services (20-50%)",
+          "Charity-based healthcare support",
+          "Improves community health standards",
+          "No financial returns expected",
+          "Ensures sustainable healthcare funding",
+          "Encourages social responsibility",
+        ],
+        investment: {
+          minimum: "₹500",
+          target: "₹2,000,000",
+          term: "N/A",
+          type: "Charity token",
+        },
+      },      
+      {
         id: "wind-rural",
         location: "EcoEnergy",
         title: "Wind Rural Electrification",

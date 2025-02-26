@@ -4,10 +4,14 @@ import re1 from "../assets/re1.png";
 import re2 from "../assets/re2.png";
 import re3 from "../assets/re3.png";
 import solarpanel from "../assets/solarpanel.png";
+import solar from "../assets/solar.png";
 import wind from "../assets/wind.png";
 import hydro from "../assets/hydro.png";
 import dinar from "../assets/dinar.png";
 import diversified from "../assets/diversified.png";
+import waste from "../assets/waste.png";
+import waqf from "../assets/waqf.png";
+import health from "../assets/health.png";
 import access from "../assets/access.png";
 import hassle from "../assets/hassle.png";
 import gridImage from "../assets/img-grid-hero.png";
@@ -16,7 +20,7 @@ import RegisterModal from "../components/RegisterModal";
 
 const InvestorHero = () => {
   return (
-    <section className="pt-48 pb-64 bg-background min-h-[70vh] flex items-center">
+    <section className="pt-48 pb-16 bg-background min-h-[70vh] flex items-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto">
           {/* Small heading */}
@@ -28,8 +32,7 @@ const InvestorHero = () => {
           <h1 className="text-text-primary text-5xl lg:text-6xl font-bold mb-8">
             invest in income
             <br />
-            generating assets
-          </h1>
+            generating assets</h1>
         </div>
       </div>
     </section>
@@ -112,7 +115,7 @@ const RealEstateSection = () => {
   ];
 
   return (
-    <section className="pt-0 pb-32 bg-background -mt-32">
+    <section className="pt-0 pb-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="mb-12">
@@ -146,6 +149,34 @@ const RealEstateSection = () => {
 const GreenEnergySection = () => {
   const projects = [
     {
+      image: waste,
+      location: "Putrajaya",
+      title: "Agro Waste to Energy",
+      returnRate: "7.2% Est Annual Return",
+      id: "agro-waste-energy",
+    },
+    {
+      image: solar,
+      location: "Malaysia",
+      title: "SME Green Energy Transition",
+      returnRate: "8.5% Est Annual Return",
+      id: "sme-green-energy",
+    },
+    {
+      image: waqf,
+      location: "Bangi",
+      title: "Waqf Solar for Surau",
+      returnRate: "No Returns - Charity",
+      id: "waqf-solar-surau",
+    }, 
+    {
+      image: health,
+      location: "India",
+      title: "Mujtaba Health Charity Token",
+      returnRate: "No Returns - Charity",
+      id: "mujtaba-health-charity",
+    },   
+    {
       image: wind,
       location: "EcoEnergy",
       title: "Wind Rural Electrification",
@@ -169,7 +200,7 @@ const GreenEnergySection = () => {
   ];
 
   return (
-    <section className="py-32 bg-background">
+    <section className="pt-0 pb-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="mb-12">
@@ -209,7 +240,7 @@ const GoldDinarSection = () => {
   };
 
   return (
-    <section className="py-32 bg-background">
+    <section className="pt-0 pb-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="mb-12">
@@ -288,7 +319,7 @@ const HowItWorksSection = () => {
   ];
 
   return (
-    <section className="py-32 bg-background">
+    <section className="py-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-20">
@@ -320,7 +351,7 @@ const ChangeWorldSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section className="py-32 bg-background">
+    <section className="py-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           {/* Left content */}
@@ -365,8 +396,8 @@ const Investor = () => {
   return (
     <div className="bg-background min-h-screen">
       <InvestorHero />
-      <GoldDinarSection />
       <GreenEnergySection />
+      <GoldDinarSection />
       <RealEstateSection />
       <HowItWorksSection />
       <ChangeWorldSection />
