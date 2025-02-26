@@ -184,7 +184,7 @@ const ProjectDetails = () => {
       {
         id: "mujtaba-health-charity",
         location: "India",
-        title: "Mujtaba Health Charity Token",
+        title: "Health Card Token",
         returnRate: "No Returns - Charity",
         images: {
           main: require("../assets/energy images/7/1.png"),
