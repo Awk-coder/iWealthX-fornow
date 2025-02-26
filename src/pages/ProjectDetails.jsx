@@ -191,7 +191,7 @@ const ProjectDetails = () => {
           secondary: require("../assets/energy images/7/2.png"),
         },
         description:
-          "This charity token funds health cards for underprivileged families, providing 20-50% discounts at select hospitals. The initiative ensures accessible healthcare for those who cannot afford the annual fee of 1,000 PKR per family.",
+          "This charity token funds health cards for underprivileged families, providing 20-50% discounts at select hospitals. The initiative ensures accessible healthcare for those who cannot afford the annual fee of 1,000 INR per family.",
         details: [
           "Provides health access to low-income families",
           "Covers a family of six",
