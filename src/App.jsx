@@ -15,6 +15,7 @@ import PartnerForm from "./pages/PartnerForm";
 import About from "./pages/About";
 import ScrollToTop from "./components/ScrollToTop";
 import ProjectDetails from "./pages/ProjectDetails";
+import Team from "./pages/Team";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/partner-form" element={<PartnerForm />} />
         <Route path="/about" element={<About />} />
         <Route path="/projects/:category/:id" element={<ProjectDetails />} />
+        <Route path="/team" element={<Team />} />
       </Routes>
       <Footer />
     </Router>

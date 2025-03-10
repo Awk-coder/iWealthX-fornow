@@ -61,12 +61,18 @@ const Header = () => {
             >
               Academy
             </a>
-            <a
-              href="/about"
+            <Link
+              to="/team"
+              className="text-text-primary hover:text-gold transition-colors"
+            >
+              Team
+            </Link>
+            <Link
+              to="/about"
               className="text-text-primary hover:text-gold transition-colors"
             >
               About
-            </a>
+            </Link>
           </nav>
 
           {/* Mobile menu button */}
@@ -133,12 +139,18 @@ const Header = () => {
               >
                 Academy
               </a>
-              <a
-                href="/about"
+              <Link
+                to="/team"
+                className="block text-text-primary hover:text-gold px-3 py-2"
+              >
+                Team
+              </Link>
+              <Link
+                to="/about"
                 className="block text-text-primary hover:text-gold px-3 py-2"
               >
                 About
-              </a>
+              </Link>
             </div>
           </div>
         )}

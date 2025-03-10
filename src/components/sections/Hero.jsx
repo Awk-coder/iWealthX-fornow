@@ -35,7 +35,7 @@ const Hero = () => {
               onClick={() => setIsModalOpen(true)}
               className="bg-gold text-background px-8 py-4 rounded-lg text-lg font-medium hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-gold/20 group relative overflow-hidden"
             >
-              <span className="relative z-10">Register</span>
+              <span className="relative z-10">Invest Now</span>
               <div className="absolute inset-0 bg-white/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
             </button>
           </div>

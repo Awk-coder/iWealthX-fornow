@@ -59,7 +59,7 @@ const Features = () => {
 
   const stats = [
     {
-      number: "50+",
+      number: "10+",
       text: "projects in pipeline",
     },
     {

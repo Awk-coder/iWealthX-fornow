@@ -32,7 +32,8 @@ const InvestorHero = () => {
           <h1 className="text-text-primary text-5xl lg:text-6xl font-bold mb-8">
             invest in income
             <br />
-            generating assets</h1>
+            generating assets
+          </h1>
         </div>
       </div>
     </section>
@@ -159,8 +160,8 @@ const GreenEnergySection = () => {
       image: solar,
       location: "Malaysia",
       title: "SME Green Energy Transition",
-      returnRate: "8.5% Est Annual Return",
-      id: "sme-green-energy",
+      returnRate: "6-8% Est Annual Return",
+      id: "enaas-solution",
     },
     {
       image: waqf,
@@ -168,14 +169,14 @@ const GreenEnergySection = () => {
       title: "Waqf Solar for Surau",
       returnRate: "No Returns - Charity",
       id: "waqf-solar-surau",
-    }, 
+    },
     {
       image: health,
-      location: "India",
-      title: "Health Card Token",
+      location: "Hyderabad, India",
+      title: "Mujtaba Helping Foundation",
       returnRate: "No Returns - Charity",
       id: "mujtaba-health-charity",
-    },   
+    },
     {
       image: wind,
       location: "EcoEnergy",

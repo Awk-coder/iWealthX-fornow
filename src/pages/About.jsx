@@ -7,20 +7,20 @@ const AboutHero = () => {
 
   const stats = [
     {
-      number: "5+",
-      label: "Years Experience",
+      number: "200yrs",
+      label: "of combined expertise",
     },
     {
-      number: "20+",
-      label: "Projects Launched",
+      number: "10+",
+      label: "Projects in Pipeline",
     },
     {
       number: "1000+",
       label: "Trusted Investors",
     },
     {
-      number: "100M+",
-      label: "Assets Tokenized",
+      number: "30B+",
+      label: "Assets to be Tokenized",
     },
   ];
 
@@ -36,16 +36,17 @@ const AboutHero = () => {
             </h1>
             <div className="text-text-secondary text-xl leading-relaxed">
               <p className="mb-6">
-                At iWealthX, we make real-world investments accessible, ethical,
-                and impactful. Our platform enables secure, Shariah-compliant
+                At iWealthX, we make real-world investments accessible, Inclusive,
+                and Transparent. Our platform enables secure, ethical and Shariah-compliant
                 investments in assets like real estate, green energy,
                 agriculture, gold, precious minerals, carbon credits, etc.
               </p>
               <p className="mb-6">
                 With as little as RM1000 (Approx. $220), anyone can start
                 building real wealth and passive income while aligning their
-                portfolio with their values. Our iWaqf tokens also let investors
-                support sustainable development and social impact initiatives.
+                portfolio with their values. Our social impact tokens allow investors to
+                support sustainable development and social impact initiatives
+                utilizing Zakat, Zadaqah, Waqf or CSR funding.
               </p>
               <p>
                 Join us to unlock the $30 trillion opportunity in real-world
