@@ -19,7 +19,7 @@ const AboutHero = () => {
       label: "Trusted Investors",
     },
     {
-      number: "30B+",
+      number: "30T+",
       label: "Assets to be Tokenized",
     },
   ];
@@ -46,7 +46,7 @@ const AboutHero = () => {
                 building real wealth and passive income while aligning their
                 portfolio with their values. Our social impact tokens allow investors to
                 support sustainable development and social impact initiatives
-                utilizing Zakat, Zadaqah, Waqf or CSR funding.
+                utilizing Zakat, Sadaqah, Waqf or CSR funding.
               </p>
               <p>
                 Join us to unlock the $30 trillion opportunity in real-world
