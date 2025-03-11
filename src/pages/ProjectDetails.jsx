@@ -348,6 +348,132 @@ const ProjectDetails = () => {
     );
   }
 
+  const EmpaneledCenters = () => {
+    const centers = {
+      hospitals: [
+        {
+          name: "CARE Hospitals",
+          logo: require("../assets/hospital-logos/care.png"),
+        },
+        {
+          name: "KAMINENI Hospitals",
+          logo: require("../assets/hospital-logos/kamineni.png"),
+        },
+        {
+          name: "VIRINCHI Hospitals",
+          logo: require("../assets/hospital-logos/virinchi.png"),
+        },
+        {
+          name: "MEDICOVER Hospitals",
+          logo: require("../assets/hospital-logos/medicover.png"),
+        },
+        {
+          name: "RENOVA Hospitals",
+          logo: require("../assets/hospital-logos/renova.png"),
+        },
+        {
+          name: "VASAN Eye Care Hospital",
+          logo: require("../assets/hospital-logos/vasan.png"),
+        },
+      ],
+      diagnostics: [
+        {
+          name: "VIJAYA Diagnostic Centre",
+          logo: require("../assets/hospital-logos/vijaya.png"),
+        },
+        {
+          name: "Crystal Diagnostic",
+          logo: require("../assets/hospital-logos/crystal.png"),
+        },
+        {
+          name: "ALFA Diagnostic",
+          logo: require("../assets/hospital-logos/alfa.png"),
+        },
+      ],
+      clinics: [
+        {
+          name: "Dr. ROMANA'S Dental Clinic",
+          logo: require("../assets/hospital-logos/romana.png"),
+        },
+        {
+          name: "Marwa Dental Hospital",
+          logo: require("../assets/hospital-logos/marwa.png"),
+        },
+        {
+          name: "Dr. SRIDEVI GUTTA Women's Health Care",
+          logo: require("../assets/hospital-logos/sridevi.png"),
+        },
+      ],
+    };
+
+    return (
+      <div>
+        {/* Hospitals Section */}
+        <div className="mb-12">
+          <h3 className="text-text-primary text-2xl font-bold mb-6">
+            Empanelled Hospitals
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {centers.hospitals.map((hospital, index) => (
+              <div
+                key={index}
+                className="p-6 bg-[#0A0A0A] rounded-2xl border border-gold/30 flex items-center justify-center h-32"
+              >
+                <img
+                  src={hospital.logo}
+                  alt={hospital.name}
+                  className="max-h-16 w-auto"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Diagnostic Centers Section */}
+        <div className="mb-12">
+          <h3 className="text-text-primary text-2xl font-bold mb-6">
+            Empanelled Diagnostic Centers
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+            {centers.diagnostics.map((center, index) => (
+              <div
+                key={index}
+                className="p-6 bg-[#0A0A0A] rounded-2xl border border-gold/30 flex items-center justify-center"
+              >
+                <img
+                  src={center.logo}
+                  alt={center.name}
+                  className="max-h-16 w-auto"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Clinics Section */}
+        <div>
+          <h3 className="text-text-primary text-2xl font-bold mb-6">
+            Empanelled Clinics
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+            {centers.clinics.map((clinic, index) => (
+              <div
+                key={index}
+                className="p-6 bg-[#0A0A0A] rounded-2xl border border-gold/30 flex items-center justify-center"
+              >
+                <img
+                  src={clinic.logo}
+                  alt={clinic.name}
+                  className="max-h-16 w-auto"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="bg-background min-h-screen">
       {/* Back button */}
@@ -483,6 +609,16 @@ const ProjectDetails = () => {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* After Project Details Section */}
+      <section className="pt-16 pb-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-text-primary text-3xl font-bold mb-8">
+            Healthcare Network
+          </h2>
+          <EmpaneledCenters />
         </div>
       </section>
     </div>

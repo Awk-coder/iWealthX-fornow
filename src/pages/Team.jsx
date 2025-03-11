@@ -1,31 +1,55 @@
 import React from "react";
+import saifImg from "../assets/team/saif.png";
+import azmathImg from "../assets/team/azmath.png";
+import muraliImg from "../assets/team/murali.png";
+import hishamImg from "../assets/team/hisham.png";
+import helmeyImg from "../assets/team/helmey.png";
+import akramImg from "../assets/team/akram.png";
+import turalayImg from "../assets/team/turalay.png";
+import ezamshahImg from "../assets/team/ezamshah.png";
+import debuImg from "../assets/team/debu.png";
+import sabithImg from "../assets/team/sabith.png";
 
-const TeamMember = ({ name, role, image, description }) => {
+const CompanyLogos = ({ companies }) => {
   return (
-    <div className="relative group rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-gold/20">
+    <div className="flex items-center gap-6 mt-4">
+      {companies.map((company, index) => {
+        const isVantage = company.includes("vantage");
+        return (
+          <img
+            key={index}
+            src={company}
+            alt="Company logo"
+            className={`${isVantage ? "h-10" : "h-7"} w-auto opacity-80`}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+const TeamMember = ({ name, role, image, description, companies }) => {
+  return (
+    <div className="relative group rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-gold/20 bg-[#0A0A0A] border border-gold/30">
       {/* Image container */}
-      <div className="relative aspect-square overflow-hidden">
+      <div className="relative aspect-[3/4] overflow-hidden">
         <img
           src={image}
           alt={name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full object-cover object-[center_15%] transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
       </div>
 
       {/* Content */}
-      <div className="relative p-8 bg-black/30 backdrop-blur-sm">
-        <h3 className="text-text-primary text-2xl font-bold mb-2 group-hover:text-gold transition-colors duration-300">
-          {name}
-        </h3>
-        <p className="text-gold mb-4">{role}</p>
-        <p className="text-text-secondary text-lg leading-relaxed">
+      <div className="relative p-8">
+        <h3 className="text-text-primary text-3xl font-bold mb-2">{name}</h3>
+        <p className="text-gold text-lg mb-4">{role}</p>
+        <p className="text-text-secondary text-base leading-relaxed mb-6">
           {description}
         </p>
+        {companies && <CompanyLogos companies={companies} />}
       </div>
-
-      {/* Border */}
-      <div className="absolute inset-0 border border-gold/30 rounded-3xl pointer-events-none transition-all duration-500 group-hover:border-gold/50 group-hover:border-2"></div>
     </div>
   );
 };
@@ -33,46 +57,93 @@ const TeamMember = ({ name, role, image, description }) => {
 const Team = () => {
   const teamMembers = [
     {
-      name: "John Smith",
-      role: "Chief Executive Officer",
-      image: "https://placehold.co/400x400/1a1a1a/gold?text=JS",
+      name: "Saif Khan",
+      role: "Founder & CEO",
+      image: saifImg,
       description:
-        "With over 20 years of experience in sustainable investments, John leads our vision of making impact investing accessible to everyone.",
+        "22+ years in Global Tech, Business, Strategy, Consulting with experience at Siemens, Dell and other leading companies.",
+      companies: [
+        require("../assets/company-logos/siemens.png"),
+        require("../assets/company-logos/dell.png"),
+        require("../assets/company-logos/cognizant.png"),
+      ],
     },
     {
-      name: "Sarah Johnson",
-      role: "Chief Investment Officer",
-      image: "https://placehold.co/400x400/1a1a1a/gold?text=SJ",
+      name: "Azmatullah Mohammad",
+      role: "Blockchain Lead",
+      image: azmathImg,
       description:
-        "Sarah brings 15 years of expertise in Islamic finance and sustainable investments, ensuring our projects meet both financial and ethical standards.",
+        "19+ years in Tech, Project & Program Management with experience at IBM and other tech leaders.",
+      companies: [require("../assets/company-logos/ibm.png")],
     },
     {
-      name: "Dr. Ahmad Hassan",
-      role: "Head of Shariah Compliance",
-      image: "https://placehold.co/400x400/1a1a1a/gold?text=AH",
+      name: "Murali Haripalan",
+      role: "Green Energy",
+      image: muraliImg,
       description:
-        "A renowned scholar in Islamic finance, Dr. Ahmad ensures all our investments strictly adhere to Shariah principles.",
+        "20+ years in Green Energy, PPA, Operations & Support with extensive industry experience.",
+      companies: [
+        require("../assets/company-logos/vantage.png"),
+        require("../assets/company-logos/bolt.png"),
+      ],
     },
     {
-      name: "Michael Chen",
-      role: "Chief Technology Officer",
-      image: "https://placehold.co/400x400/1a1a1a/gold?text=MC",
+      name: "Muhammad Hisyam",
+      role: "Company Secretary",
+      image: hishamImg,
       description:
-        "Leading our digital transformation, Michael combines blockchain expertise with sustainable finance innovation.",
+        "8+ Years in Legal, Dispute Resolution & Finance, ensuring compliance and legal oversight.",
     },
     {
-      name: "Lisa Wong",
-      role: "Head of Sustainability",
-      image: "https://placehold.co/400x400/1a1a1a/gold?text=LW",
+      name: "Helmey Haris",
+      role: "Investor Relations",
+      image: helmeyImg,
       description:
-        "Lisa oversees our environmental impact assessment and ensures all projects meet strict sustainability criteria.",
+        "Investor relations & Shariah Expert, managing stakeholder relationships and ensuring Shariah compliance.",
     },
     {
-      name: "David Park",
-      role: "Chief Risk Officer",
-      image: "https://placehold.co/400x400/1a1a1a/gold?text=DP",
+      name: "Sabith Khan",
+      role: "Head of Research",
+      image: sabithImg,
       description:
-        "With extensive experience in risk management, David ensures our investments maintain the perfect balance of impact and security.",
+        "Leading research initiatives and market analysis to drive informed investment decisions.",
+    },
+  ];
+
+  const advisors = [
+    {
+      name: "Dr Datuk Akram Laldin",
+      role: "Shariah Advisor",
+      image: akramImg,
+      description:
+        "Expert in Shariah compliance and Islamic finance with extensive experience in ISRA and FABS.",
+      companies: [require("../assets/company-logos/isra.png")],
+    },
+    {
+      name: "Dr Turalay Kenc",
+      role: "Regulatory Advisor",
+      image: turalayImg,
+      description:
+        "Regulatory expert with deep knowledge of financial markets and compliance frameworks.",
+    },
+    {
+      name: "Ezamshah Ismail",
+      role: "Risk Management Advisor",
+      image: ezamshahImg,
+      description:
+        "Specialist in risk management and financial strategy implementation.",
+    },
+    {
+      name: "Debu Dasgupta",
+      role: "AI, Data & Tech Advisor",
+      image: debuImg,
+      description:
+        "Technology expert with experience at Ford and HP, specializing in AI and data solutions.",
+      companies: [
+        require("../assets/company-logos/ford.png"),
+        require("../assets/company-logos/hp.png"),
+        require("../assets/company-logos/cognizant.png"),
+      ],
     },
   ];
 
@@ -106,6 +177,34 @@ const Team = () => {
                 role={member.role}
                 image={member.image}
                 description={member.description}
+                companies={member.companies}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Advisors Section */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-4xl mx-auto mb-16">
+            <h2 className="text-gold text-xl font-medium tracking-wider uppercase mb-4">
+              Our Advisors
+            </h2>
+            <h3 className="text-text-primary text-4xl font-bold mb-8">
+              Expert Guidance
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {advisors.map((advisor, index) => (
+              <TeamMember
+                key={index}
+                name={advisor.name}
+                role={advisor.role}
+                image={advisor.image}
+                description={advisor.description}
+                companies={advisor.companies}
               />
             ))}
           </div>
@@ -174,4 +273,4 @@ const Team = () => {
   );
 };
 
-export default Team; 
+export default Team;
