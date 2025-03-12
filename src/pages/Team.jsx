@@ -9,21 +9,19 @@ import turalayImg from "../assets/team/turalay.png";
 import ezamshahImg from "../assets/team/ezamshah.png";
 import debuImg from "../assets/team/debu.png";
 import sabithImg from "../assets/team/sabith.png";
+import azmiImg from "../assets/team/azmi.png";
 
 const CompanyLogos = ({ companies }) => {
   return (
-    <div className="flex items-center gap-6 mt-4">
-      {companies.map((company, index) => {
-        const isVantage = company.includes("vantage");
-        return (
-          <img
-            key={index}
-            src={company}
-            alt="Company logo"
-            className={`${isVantage ? "h-10" : "h-7"} w-auto opacity-80`}
-          />
-        );
-      })}
+    <div className="flex items-center gap-6 mt-2">
+      {companies.map((company, index) => (
+        <img
+          key={index}
+          src={company}
+          alt="Company logo"
+          className="h-[100px] w-[80px] object-contain opacity-80"
+        />
+      ))}
     </div>
   );
 };
@@ -42,10 +40,10 @@ const TeamMember = ({ name, role, image, description, companies }) => {
       </div>
 
       {/* Content */}
-      <div className="relative p-8">
+      <div className="relative p-8 pb-6">
         <h3 className="text-text-primary text-3xl font-bold mb-2">{name}</h3>
         <p className="text-gold text-lg mb-4">{role}</p>
-        <p className="text-text-secondary text-base leading-relaxed mb-6">
+        <p className="text-text-secondary text-base leading-relaxed mb-4">
           {description}
         </p>
         {companies && <CompanyLogos companies={companies} />}
@@ -61,7 +59,7 @@ const Team = () => {
       role: "Founder & CEO",
       image: saifImg,
       description:
-        "22+ years in Global Tech, Business, Strategy, Consulting with experience at Siemens, Dell and other leading companies.",
+        "Global technology and strategy expert with over 22 years of experience leading transformative initiatives at Siemens, Dell, and Cognizant, specializing in business innovation.",
       companies: [
         require("../assets/company-logos/siemens.png"),
         require("../assets/company-logos/dell.png"),
@@ -73,7 +71,7 @@ const Team = () => {
       role: "Blockchain Lead",
       image: azmathImg,
       description:
-        "19+ years in Tech, Project & Program Management with experience at IBM and other tech leaders.",
+        "Seasoned technology leader with 19 years at IBM and other tech giants, specializing in blockchain implementation, project management, and digital transformation solutions.",
       companies: [require("../assets/company-logos/ibm.png")],
     },
     {
@@ -81,7 +79,7 @@ const Team = () => {
       role: "Green Energy",
       image: muraliImg,
       description:
-        "20+ years in Green Energy, PPA, Operations & Support with extensive industry experience.",
+        "Renewable energy expert with 20 years of experience in power purchase agreements, operations, and sustainable energy solutions at Vantage and Bolt Industries.",
       companies: [
         require("../assets/company-logos/vantage.png"),
         require("../assets/company-logos/bolt.png"),
@@ -92,53 +90,66 @@ const Team = () => {
       role: "Company Secretary",
       image: hishamImg,
       description:
-        "8+ Years in Legal, Dispute Resolution & Finance, ensuring compliance and legal oversight.",
+        "Legal and finance professional with 8 years of expertise in corporate governance, dispute resolution, and regulatory compliance in Islamic finance.",
     },
     {
       name: "Helmey Haris",
       role: "Investor Relations",
       image: helmeyImg,
       description:
-        "Investor relations & Shariah Expert, managing stakeholder relationships and ensuring Shariah compliance.",
+        "Experienced Shariah finance specialist focusing on investor relationships, stakeholder management, and ensuring compliance with Islamic financial principles across operations.",
     },
     {
-      name: "Sabith Khan",
-      role: "Head of Research",
+      name: "Dr. Sabith Khan",
+      role: "Co-Founder & Head of Research, tlali•pani",
       image: sabithImg,
       description:
-        "Leading research initiatives and market analysis to drive informed investment decisions.",
+        "California-based nonprofit executive and researcher specializing in philanthropy, remittances, and financial flows across Latin America, South Asia, and Middle East regions.",
     },
   ];
 
   const advisors = [
     {
-      name: "Dr Datuk Akram Laldin",
+      name: "Dato' Prof. Dr. Azmi Omar",
+      role: "Islamic Finance Advisor",
+      image: azmiImg,
+      description:
+        "Pioneering IIUM professor and former IRTI Director General, recognized among top 500 influential personalities in Islamic finance with multiple international awards.",
+      companies: [require("../assets/company-logos/inceif.png")],
+    },
+    {
+      name: "Prof. Datuk Dr. Mohamad Akram Laldin",
       role: "Shariah Advisor",
       image: akramImg,
       description:
-        "Expert in Shariah compliance and Islamic finance with extensive experience in ISRA and FABS.",
+        "Distinguished INCEIF professor and global Shariah expert serving on multiple international Islamic financial boards, including Bank Negara Malaysia's Shariah Advisory Council.",
       companies: [require("../assets/company-logos/isra.png")],
     },
     {
-      name: "Dr Turalay Kenc",
+      name: "Dr. Turalay Kenc",
       role: "Regulatory Advisor",
       image: turalayImg,
       description:
-        "Regulatory expert with deep knowledge of financial markets and compliance frameworks.",
+        "Former central bank executive and regulatory specialist with extensive experience in financial markets, policy development, and international banking frameworks.",
+      companies: [
+        require("../assets/company-logos/inceif.png"),
+        require("../assets/company-logos/tcmb.png"),
+      ],
     },
     {
       name: "Ezamshah Ismail",
       role: "Risk Management Advisor",
       image: ezamshahImg,
       description:
-        "Specialist in risk management and financial strategy implementation.",
+        "Specialist in risk management and financial strategy implementation with extensive experience in Islamic finance and banking sectors.",
+      companies: [require("../assets/company-logos/inceif.png")],
     },
     {
       name: "Debu Dasgupta",
       role: "AI, Data & Tech Advisor",
       image: debuImg,
       description:
-        "Technology expert with experience at Ford and HP, specializing in AI and data solutions.",
+        "Innovation leader with extensive experience at Ford, HP, and Cognizant, specializing in AI implementation and data-driven technological solutions.",
       companies: [
         require("../assets/company-logos/ford.png"),
         require("../assets/company-logos/hp.png"),
@@ -196,7 +207,7 @@ const Team = () => {
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {advisors.map((advisor, index) => (
               <TeamMember
                 key={index}
