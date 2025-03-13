@@ -187,7 +187,7 @@ const Team = () => {
     },
     {
       name: "Dr. Sabith Khan",
-      role: "Head of Research",
+      role: "Head of Research & Investor Relations",
       image: sabithImg,
       description:
         "California-based nonprofit executive and researcher specializing in philanthropy, remittances, and financial flows across Latin America, South Asia, and Middle East regions.",
