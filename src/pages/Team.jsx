@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import saifImg from "../assets/team/saif.png";
 import azmathImg from "../assets/team/azmath.png";
 import muraliImg from "../assets/team/murali.png";
@@ -26,29 +26,115 @@ const CompanyLogos = ({ companies }) => {
   );
 };
 
-const TeamMember = ({ name, role, image, description, companies }) => {
-  return (
-    <div className="relative group rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-gold/20 bg-[#0A0A0A] border border-gold/30">
-      {/* Image container */}
-      <div className="relative aspect-[3/4] overflow-hidden">
-        <img
-          src={image}
-          alt={name}
-          className="w-full h-full object-cover object-[center_15%] transition-transform duration-500 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
-      </div>
+const AdvisorModal = ({ isOpen, onClose, advisor }) => {
+  if (!isOpen) return null;
 
-      {/* Content */}
-      <div className="relative p-8 pb-6">
-        <h3 className="text-text-primary text-3xl font-bold mb-2">{name}</h3>
-        <p className="text-gold text-lg mb-4">{role}</p>
-        <p className="text-text-secondary text-base leading-relaxed mb-4">
-          {description}
-        </p>
-        {companies && <CompanyLogos companies={companies} />}
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-black/95">
+      <div
+        className="relative max-w-6xl w-full bg-gradient-to-br from-[#0A0A0A] to-[#121212] rounded-[2.5rem] overflow-hidden"
+        style={{ boxShadow: "0 25px 50px -12px rgba(184,134,11,0.15)" }}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-8 right-8 text-gold/80 hover:text-gold transition-colors duration-300 z-10"
+        >
+          <svg
+            className="w-8 h-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
+        <div className="flex flex-col md:flex-row items-stretch">
+          {/* Image section */}
+          <div className="md:w-[45%] relative">
+            <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-[#0A0A0A] md:bg-gradient-to-r" />
+            <img
+              src={advisor.image}
+              alt={advisor.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Content section */}
+          <div className="md:w-[55%] p-12 md:p-16 md:pl-20 max-h-[80vh] overflow-y-auto custom-scrollbar">
+            <div className="mb-12">
+              <h2 className="text-text-primary text-4xl font-bold mb-4 leading-tight">
+                {advisor.name}
+              </h2>
+              <p className="text-gold/90 text-xl font-medium">{advisor.role}</p>
+            </div>
+
+            <div className="space-y-6">
+              {advisor.fullBio.split("\n\n").map((paragraph, index) => (
+                <p
+                  key={index}
+                  className="text-text-secondary/90 text-lg leading-relaxed"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+
+            {advisor.companies && (
+              <div className="mt-12 pt-12 border-t border-gold/10">
+                <CompanyLogos companies={advisor.companies} />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
+  );
+};
+
+const TeamMember = ({ name, role, image, description, companies, fullBio }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <>
+      <div
+        className="relative group rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-gold/20 bg-[#0A0A0A] border border-gold/30 cursor-pointer"
+        onClick={() => fullBio && setIsModalOpen(true)}
+      >
+        {/* Image container */}
+        <div className="relative aspect-[3/4] overflow-hidden">
+          <img
+            src={image}
+            alt={name}
+            className="w-full h-full object-cover object-[center_15%] transition-transform duration-500 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
+        </div>
+
+        {/* Content */}
+        <div className="relative p-8 pb-6">
+          <h3 className="text-text-primary text-3xl font-bold mb-2">{name}</h3>
+          <p className="text-gold text-lg mb-4">{role}</p>
+          <p className="text-text-secondary text-base leading-relaxed mb-4">
+            {description}
+          </p>
+          {companies && <CompanyLogos companies={companies} />}
+        </div>
+      </div>
+
+      {fullBio && (
+        <AdvisorModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          advisor={{ name, role, image, fullBio, companies }}
+        />
+      )}
+    </>
   );
 };
 
@@ -116,6 +202,15 @@ const Team = () => {
       description:
         "Pioneering IIUM professor and former IRTI Director General, recognized among top 500 influential personalities in Islamic finance with multiple international awards.",
       companies: [require("../assets/company-logos/inceif.png")],
+      fullBio: `Dato' Azmi is one of International Islamic University Malaysia's (IIUM) pioneering staff when he joined the then newly set up university in Nov 1983 as a lecturer at the Kulliyyah of Economics and Management Sciences.
+
+      In his 36 years of service to IIUM, he was a professor at the Department of Finance, and Department of Business Administration, Kulliyah of Economics and Management Sciences. He was also the Dean of the Kulliyyah from 1996 to 2003.
+
+      From 2003 to 2008, he held the position of Deputy Rector (Academic and Research). He was the Dean of the Office of Corporate Strategy and Quality Assurance from 2008 to 2009 and the Dean of IUM Institute of Islamic Banking and Finance from 2009 to 2011.
+
+      Prior to joining INCEIF, Dato' Azmi was the Director General of Islamic Research and Training Institute (IRTI) at Islamic Development Bank Group in Jeddah (Jan 2012 – Sept 2017). At IRTI, he had introduced a number of innovative policy research which culminated into flagship reports such as IRTI Islamic Social Finance Report and IsDB-World Bank Global Report on Islamic Finance.
+
+      Over the years, Dato' Azmi has received awards and recognitions at the international and the national levels, including being named in the Top 500 of the world's most prominent and influential personalities in the Islamic world in Islamica 500, The Most Outstanding Individual Contribution to Islamic Finance at the KLIFF Islamic Finance Awards in Kuala Lumpur in 2015, and Lifetime Achievement Award in Islamic Economics and Finance at the 3rd World Islamic Economics and Finance Conference in Pakistan in 2020.`,
     },
     {
       name: "Prof. Datuk Dr. Mohamad Akram Laldin",
@@ -124,6 +219,13 @@ const Team = () => {
       description:
         "Distinguished INCEIF professor and global Shariah expert serving on multiple international Islamic financial boards, including Bank Negara Malaysia's Shariah Advisory Council.",
       companies: [require("../assets/company-logos/isra.png")],
+      fullBio: `Datuk Prof. Dr. Mohamad Akram is currently a Professor at INCEIF University, Malaysia. Prior to joining INCEIF, he served as an Assistant Professor at the Kulliyah of Islamic Revealed Knowledge and Human Sciences, International Islamic University Malaysia (IIUM).
+
+      Between 2002 and 2004, he was a Visiting Assistant Professor at the University of Sharjah in the United Arab Emirates. He also held the position of Executive Director at the International Shari'ah Research Academy for Islamic Finance (ISRA), an institution established by Bank Negara Malaysia, until 2023.
+
+      Prof. Akram is an esteemed member of various Shari'ah advisory boards and councils. He is currently a Member of the Shari'ah Advisory Council at Bank Negara Malaysia, a Member of the MIFC Leadership Council, Chairman of the Shari'ah Board of the Employees Provident Fund Malaysia (EPF), and Chairman of the Shariah Supervisory Council of Labuan Financial Services Authority (FSA).
+
+      He holds a B.A. Honours degree in Islamic Jurisprudence and Legislation from the University of Jordan in Amman and a Ph.D. in Principles of Islamic Jurisprudence (Usul al-Fiqh) from the University of Edinburgh in Scotland.`,
     },
     {
       name: "Dr. Turalay Kenc",
@@ -216,6 +318,7 @@ const Team = () => {
                 image={advisor.image}
                 description={advisor.description}
                 companies={advisor.companies}
+                fullBio={advisor.fullBio}
               />
             ))}
           </div>
