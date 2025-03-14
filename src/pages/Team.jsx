@@ -316,6 +316,15 @@ const Team = () => {
         require("../assets/company-logos/hp.png"),
         require("../assets/company-logos/cognizant.png"),
       ],
+      fullBio: `Debu Dasgupta is a distinguished Technology Visionary and Business Mentor with a remarkable track record in creating and scaling businesses from the ground up. His expertise lies in guiding organizations to develop and execute effective strategies, particularly in bridging the gap between complex business challenges and innovative technology solutions.
+
+      As a Multiple Technology Practice Head, he has demonstrated exceptional ability in building comprehensive technology practices that consistently exceed customer expectations. His approach combines deep technical knowledge with strategic business acumen, enabling him to successfully bid, win, and deliver sophisticated solutions while serving as a "Trusted Advisor" to major corporations.
+
+      Throughout his career, he has excelled in directing the technology roadmap of large organizations, both in-house and in outsourced environments. His major strength lies in his unique ability to understand and connect business requirements with technological capabilities, often serving as the crucial bridge between these two domains.
+
+      Currently, he is focused on bringing his decades of experience to mentor and guide Tech Start-ups across various sectors, including Fintech, Insurance, and Healthcare. His involvement extends to supporting a well-respected Education NGO, demonstrating his commitment to giving back to the community.
+
+      His expertise in wow-ing customers through both business and technology depths has made him a sought-after advisor in the technology sector. His approach to problem-solving and strategy development continues to influence and shape the direction of numerous organizations in their digital transformation journeys.`,
     },
   ];
 
