@@ -29,8 +29,17 @@ const CompanyLogos = ({ companies }) => {
 const AdvisorModal = ({ isOpen, onClose, advisor }) => {
   if (!isOpen) return null;
 
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-black/95">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-black/95"
+      onClick={handleBackdropClick}
+    >
       <div
         className="relative max-w-6xl w-full bg-gradient-to-br from-[#0A0A0A] to-[#121212] rounded-[2.5rem] overflow-hidden"
         style={{ boxShadow: "0 25px 50px -12px rgba(184,134,11,0.15)" }}
@@ -158,7 +167,11 @@ const Team = () => {
       image: azmathImg,
       description:
         "Seasoned technology leader with 19 years at IBM and other tech giants, specializing in blockchain implementation, project management, and digital transformation solutions.",
-      companies: [require("../assets/company-logos/ibm.png")],
+      companies: [
+        require("../assets/company-logos/ibm.png"),
+        require("../assets/company-logos/capgemini.png"),
+        require("../assets/company-logos/deloitte.png"),
+      ],
     },
     {
       name: "Murali Haripalan",
@@ -191,6 +204,10 @@ const Team = () => {
       image: sabithImg,
       description:
         "California-based nonprofit executive and researcher specializing in philanthropy, remittances, and financial flows across Latin America, South Asia, and Middle East regions.",
+      companies: [
+        require("../assets/company-logos/cl.png"),
+        require("../assets/company-logos/vt.png"),
+      ],
     },
   ];
 
@@ -201,7 +218,11 @@ const Team = () => {
       image: azmiImg,
       description:
         "Pioneering IIUM professor and former IRTI Director General, recognized among top 500 influential personalities in Islamic finance with multiple international awards.",
-      companies: [require("../assets/company-logos/inceif.png")],
+      companies: [
+        require("../assets/company-logos/inceif.png"),
+        require("../assets/company-logos/irti.png"),
+        require("../assets/company-logos/iium.png"),
+      ],
       fullBio: `Dato' Azmi is one of International Islamic University Malaysia's (IIUM) pioneering staff when he joined the then newly set up university in Nov 1983 as a lecturer at the Kulliyyah of Economics and Management Sciences.
 
       In his 36 years of service to IIUM, he was a professor at the Department of Finance, and Department of Business Administration, Kulliyah of Economics and Management Sciences. He was also the Dean of the Kulliyyah from 1996 to 2003.
@@ -218,7 +239,11 @@ const Team = () => {
       image: akramImg,
       description:
         "Distinguished INCEIF professor and global Shariah expert serving on multiple international Islamic financial boards, including Bank Negara Malaysia's Shariah Advisory Council.",
-      companies: [require("../assets/company-logos/isra.png")],
+      companies: [
+        require("../assets/company-logos/kwsp.png"),
+        require("../assets/company-logos/dib.png"),
+        require("../assets/company-logos/fab.png"),
+      ],
       fullBio: `Datuk Prof. Dr. Mohamad Akram is currently a Professor at INCEIF University, Malaysia. Prior to joining INCEIF, he served as an Assistant Professor at the Kulliyah of Islamic Revealed Knowledge and Human Sciences, International Islamic University Malaysia (IIUM).
 
       Between 2002 and 2004, he was a Visiting Assistant Professor at the University of Sharjah in the United Arab Emirates. He also held the position of Executive Director at the International Shari'ah Research Academy for Islamic Finance (ISRA), an institution established by Bank Negara Malaysia, until 2023.
@@ -236,7 +261,17 @@ const Team = () => {
       companies: [
         require("../assets/company-logos/inceif.png"),
         require("../assets/company-logos/tcmb.png"),
+        require("../assets/company-logos/icl.png"),
       ],
+      fullBio: `Prof. Turalay Kenc brings a wealth of experience from his distinguished career spanning central banking, academia, and international financial institutions. His expertise encompasses monetary policy, financial markets, and economic research, making him a valuable advisor on regulatory frameworks and financial governance.
+
+      Throughout his career, he has gained extensive work and consultancy experience from prestigious institutions worldwide. His contributions include advisory roles at the US Federal Reserve, UK's Official Monetary and Financial Institutions Forum (OMFIF), the Centre for International Governance Innovation in Canada, and the Kazakhstan National Bank, demonstrating his global influence in financial policy and regulation.
+
+      His academic career has been equally impressive, having held positions at several prestigious UK institutions. He has contributed to research and teaching at the University of Cambridge, Birkbeck College London, the University of Durham, and Imperial College London in various capacities. Prior to his role at the Central Bank of the Republic of Turkey, he served as Professor of Finance at the Bradford University School of Management, where he made significant contributions to financial education and research.
+
+      In April 2009, he joined the Central Bank of the Republic of Turkey as a Board Member, where he played a crucial role in shaping monetary policy and financial stability measures. His leadership extended to chairing the Bank for International Settlements' Irving Fisher Committee on Central Bank Statistics, where he contributed to advancing statistical methodologies and practices in central banking.
+
+      As editor-in-chief of the Central Banking Review-Journal, he has fostered academic discourse and research in central banking and monetary policy. His multifaceted experience in academia, central banking, and international advisory roles provides unique insights into the complexities of global financial markets and regulatory frameworks.`,
     },
     {
       name: "Ezamshah Ismail",
@@ -244,7 +279,20 @@ const Team = () => {
       image: ezamshahImg,
       description:
         "Specialist in risk management and financial strategy implementation with extensive experience in Islamic finance and banking sectors.",
-      companies: [require("../assets/company-logos/inceif.png")],
+      companies: [
+        require("../assets/company-logos/inceif.png"),
+        require("../assets/company-logos/liam.png"),
+        require("../assets/company-logos/hl.png"),
+      ],
+      fullBio: `Ezamshah Ismail brings decades of invaluable experience in insurance, Takaful, and risk management to his advisory role. His academic foundation includes a Masters Degree in Actuarial Science from North Eastern University, Boston, complemented by his prestigious designation as an Associate of the Society of Actuaries of USA.
+
+      Throughout his distinguished career, he has held several pivotal leadership positions in Malaysia's insurance and Takaful sector. As the former President of the Life Insurance Association of Malaysia (LIAM), he played a crucial role in shaping the industry's development and establishing best practices that continue to influence the sector today.
+
+      His executive experience includes serving as CEO of Hong Leong Tokio Marine Takaful Bhd., where he demonstrated exceptional leadership in Islamic insurance operations. Prior to this, he served as CEO/Director of Commerce Life Assurance Berhad, where he contributed significantly to the company's growth and strategic direction. His tenure as Managing Principal and director of William Mercer in Kuala Lumpur further showcases his expertise in financial consulting and risk management.
+
+      Ezamshah's commitment to the industry extends beyond his executive roles. He has served as a director for several key institutions, including the Malaysian Institute of Insurance, where he contributed to professional development and industry standards. His role at the Financial Mediation Bureau (formerly known as Insurance Mediation) demonstrated his dedication to ensuring fair practices and consumer protection in the insurance sector.
+
+      His unique combination of actuarial expertise, executive leadership, and deep understanding of both conventional insurance and Takaful principles makes him an invaluable advisor in risk management and Islamic finance. His experience bridges the gap between technical actuarial knowledge and practical business implementation, providing crucial insights for strategic decision-making.`,
     },
     {
       name: "Debu Dasgupta",
