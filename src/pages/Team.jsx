@@ -218,6 +218,7 @@ const Team = () => {
       companies: [
         require("../assets/company-logos/cl.png"),
         require("../assets/company-logos/vt.png"),
+        require("../assets/company-logos/tp.png"),
       ],
     },
   ];
