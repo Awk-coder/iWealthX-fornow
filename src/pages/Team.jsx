@@ -182,6 +182,7 @@ const Team = () => {
       companies: [
         require("../assets/company-logos/vantage.png"),
         require("../assets/company-logos/bolt.png"),
+        require("../assets/company-logos/vpp.png"),
       ],
     },
     {
@@ -190,6 +191,11 @@ const Team = () => {
       image: hishamImg,
       description:
         "Legal and finance professional with 8 years of expertise in corporate governance, dispute resolution, and regulatory compliance in Islamic finance.",
+      companies: [
+        require("../assets/company-logos/yayasan.png"),
+        require("../assets/company-logos/csr.png"),
+        require("../assets/company-logos/nims.png"),
+      ],
     },
     {
       name: "Helmey Haris",
@@ -197,6 +203,11 @@ const Team = () => {
       image: helmeyImg,
       description:
         "Experienced Shariah finance specialist focusing on investor relationships, stakeholder management, and ensuring compliance with Islamic financial principles across operations.",
+      companies: [
+        require("../assets/company-logos/hl.png"),
+        require("../assets/company-logos/hasco.png"),
+        require("../assets/company-logos/hi.png"),
+      ],
     },
     {
       name: "Dr. Sabith Khan",
