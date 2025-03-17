@@ -68,6 +68,12 @@ const Header = () => {
               Team
             </Link>
             <Link
+              to="/faq"
+              className="text-text-primary hover:text-gold transition-colors"
+            >
+              FAQ
+            </Link>
+            <Link
               to="/about"
               className="text-text-primary hover:text-gold transition-colors"
             >
@@ -144,6 +150,12 @@ const Header = () => {
                 className="block text-text-primary hover:text-gold px-3 py-2"
               >
                 Team
+              </Link>
+              <Link
+                to="/faq"
+                className="block text-text-primary hover:text-gold px-3 py-2"
+              >
+                FAQ
               </Link>
               <Link
                 to="/about"

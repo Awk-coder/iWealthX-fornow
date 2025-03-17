@@ -10,6 +10,8 @@ const Footer = () => {
       name: "Academy",
       href: "https://www.youtube.com/channel/UCZKRRbxpObNoQGNzHVgewLw",
     },
+    { name: "Team", href: "/team" },
+    { name: "FAQ", href: "/faq" },
     { name: "About", href: "/about" },
   ];
 

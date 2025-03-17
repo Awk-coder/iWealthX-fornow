@@ -22,7 +22,7 @@ const Hero = () => {
 
             <p className="text-text-secondary text-lg mb-8">
               Ready to grow your wealth? Invest in high quality fractional real
-              world assets like Real estate, Green energy, Gold, Agriculture,
+              world assets like Green energy, Gold, Agriculture,
               Carbon credits and more with as low as 1000RM.
             </p>
 

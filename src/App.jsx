@@ -16,6 +16,7 @@ import About from "./pages/About";
 import ScrollToTop from "./components/ScrollToTop";
 import ProjectDetails from "./pages/ProjectDetails";
 import Team from "./pages/Team";
+import FAQ from "./pages/FAQ";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/projects/:category/:id" element={<ProjectDetails />} />
         <Route path="/team" element={<Team />} />
+        <Route path="/faq" element={<FAQ />} />
       </Routes>
       <Footer />
     </Router>
