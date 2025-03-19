@@ -16,6 +16,26 @@ const FAQSection = ({ title, questions }) => {
 const FAQItem = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const formatAnswer = (text) => {
+    // Convert URLs to links
+    const withLinks = text.replace(
+      /(https?:\/\/[^\s]+)/g,
+      '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-gold hover:text-white transition-colors">$1</a>'
+    );
+
+    // Convert numbered lists
+    const lines = withLinks.split('\n');
+    return lines.map((line, index) => {
+      if (line.match(/^\d+\./)) {
+        return `<li class="ml-4 pl-2">${line.replace(/^\d+\.\s*/, '')}</li>`;
+      }
+      if (line.startsWith('•')) {
+        return `<li class="ml-4 pl-2">${line.replace(/^•\s*/, '')}</li>`;
+      }
+      return line;
+    }).join('\n');
+  };
+
   return (
     <div className="border-b border-gold/10">
       <button
@@ -42,9 +62,11 @@ const FAQItem = ({ question, answer }) => {
       >
         <div className="prose prose-invert prose-gold max-w-none">
           {answer.split('\n\n').map((paragraph, index) => (
-            <p key={index} className="text-text-secondary leading-relaxed">
-              {paragraph}
-            </p>
+            <div 
+              key={index}
+              className="text-text-secondary leading-relaxed mb-4"
+              dangerouslySetInnerHTML={{ __html: formatAnswer(paragraph) }}
+            />
           ))}
         </div>
       </div>

@@ -174,15 +174,15 @@ const Team = () => {
       ],
     },
     {
-      name: "Murali Haripalan",
-      role: "Green Energy",
-      image: muraliImg,
+      name: "Dr. Sabith Khan",
+      role: "Head of Research",
+      image: sabithImg,
       description:
-        "Renewable energy expert with 20 years of experience in power purchase agreements, operations, and sustainable energy solutions at Vantage and Bolt Industries.",
+        "California-based nonprofit executive and researcher specializing in philanthropy, remittances, and financial flows across Latin America, South Asia, and Middle East regions.",
       companies: [
-        require("../assets/company-logos/vantage.png"),
-        require("../assets/company-logos/bolt.png"),
-        require("../assets/company-logos/vpp.png"),
+        require("../assets/company-logos/cl.png"),
+        require("../assets/company-logos/vt.png"),
+        require("../assets/company-logos/tp.png"),
       ],
     },
     {
@@ -210,15 +210,15 @@ const Team = () => {
       ],
     },
     {
-      name: "Dr. Sabith Khan",
-      role: "Head of Research & Investor Relations",
-      image: sabithImg,
+      name: "Murali Haripalan",
+      role: "Green Energy",
+      image: muraliImg,
       description:
-        "California-based nonprofit executive and researcher specializing in philanthropy, remittances, and financial flows across Latin America, South Asia, and Middle East regions.",
+        "Renewable energy expert with 20 years of experience in power purchase agreements, operations, and sustainable energy solutions at Vantage and Bolt Industries.",
       companies: [
-        require("../assets/company-logos/cl.png"),
-        require("../assets/company-logos/vt.png"),
-        require("../assets/company-logos/tp.png"),
+        require("../assets/company-logos/vantage.png"),
+        require("../assets/company-logos/bolt.png"),
+        require("../assets/company-logos/vpp.png"),
       ],
     },
   ];
