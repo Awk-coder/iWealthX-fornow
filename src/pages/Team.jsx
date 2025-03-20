@@ -226,7 +226,7 @@ const Team = () => {
   const advisors = [
     {
       name: "Dato' Prof. Dr. Azmi Omar",
-      role: "Islamic Finance Advisor",
+      role: "Chairman",
       image: azmiImg,
       description:
         "Pioneering IIUM professor and former IRTI Director General, recognized among top 500 influential personalities in Islamic finance with multiple international awards.",
