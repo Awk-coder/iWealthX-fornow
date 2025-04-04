@@ -154,7 +154,7 @@ const Team = () => {
       role: "Founder & CEO",
       image: saifImg,
       description:
-        "Global technology and strategy expert with over 22 years of experience leading transformative initiatives at Siemens, Dell, and Cognizant, specializing in business innovation.",
+        "Global technology and strategy expert with over 22 years of experience leading transformative initiatives at Siemens, Dell, and Cognizant, specializing in business innovation and digital transformation across multiple industries.",
       companies: [
         require("../assets/company-logos/siemens.png"),
         require("../assets/company-logos/dell.png"),
@@ -166,7 +166,7 @@ const Team = () => {
       role: "Blockchain Lead",
       image: azmathImg,
       description:
-        "Seasoned technology leader with 19 years at IBM and other tech giants, specializing in blockchain implementation, project management, and digital transformation solutions.",
+        "Seasoned technology leader with 19 years at IBM and tech giants, specializing in blockchain implementation, project management, digital transformation solutions, and enterprise software development.",
       companies: [
         require("../assets/company-logos/ibm.png"),
         require("../assets/company-logos/capgemini.png"),
@@ -178,7 +178,7 @@ const Team = () => {
       role: "Head of Research",
       image: sabithImg,
       description:
-        "California-based nonprofit executive and researcher specializing in philanthropy, remittances, and financial flows across Latin America, South Asia, and Middle East regions.",
+        "California-based nonprofit executive and researcher specializing in philanthropy, remittances, and financial flows across Latin America, South Asia, and Middle East regions, with expertise in international development and sustainable community engagement.",
       companies: [
         require("../assets/company-logos/cl.png"),
         require("../assets/company-logos/vt.png"),
@@ -250,7 +250,7 @@ const Team = () => {
       role: "Shariah Advisor",
       image: akramImg,
       description:
-        "Distinguished INCEIF professor and global Shariah expert serving on multiple international Islamic financial boards, including Bank Negara Malaysia's Shariah Advisory Council.",
+        "Distinguished INCEIF professor and global Shariah expert serving on multiple international Islamic financial boards.",
       companies: [
         require("../assets/company-logos/kwsp.png"),
         require("../assets/company-logos/dib.png"),
@@ -269,7 +269,7 @@ const Team = () => {
       role: "Regulatory Advisor",
       image: turalayImg,
       description:
-        "Former central bank executive and regulatory specialist with extensive experience in financial markets, policy development, and international banking frameworks.",
+        "Former central bank executive and regulatory specialist with extensive experience in financial markets, policy development, international banking frameworks, global economic research methodologies, and strategic monetary policy implementation.",
       companies: [
         require("../assets/company-logos/inceif.png"),
         require("../assets/company-logos/tcmb.png"),
