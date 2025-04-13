@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import saifImg from "../assets/team/saif.png";
 import azmathImg from "../assets/team/azmath.png";
 import muraliImg from "../assets/team/murali.png";
-import hishamImg from "../assets/team/hisham.png";
+import awkImg from "../assets/team/awk.png";
 import helmeyImg from "../assets/team/helmey.png";
 import akramImg from "../assets/team/akram.png";
 import turalayImg from "../assets/team/turalay.png";
@@ -186,15 +186,13 @@ const Team = () => {
       ],
     },
     {
-      name: "Muhammad Hisyam",
-      role: "Company Secretary",
-      image: hishamImg,
+      name: "Abdul Wahid Khan",
+      role: "Developer Intern",
+      image: awkImg,
       description:
-        "Legal and finance professional with 8 years of expertise in corporate governance, dispute resolution, and regulatory compliance in Islamic finance.",
+        "Developer Intern experienced in web development and responsive applications. Proficient in React and modern web technologies. Passionate about creating user-friendly solutions.",
       companies: [
-        require("../assets/company-logos/yayasan.png"),
-        require("../assets/company-logos/csr.png"),
-        require("../assets/company-logos/nims.png"),
+        require("../assets/company-logos/iwx.png"),
       ],
     },
     {
