@@ -26,6 +26,11 @@ const Hero = () => {
               Carbon credits and more with as low as 1000RM.
             </p>
 
+            <p className="text-text-secondary text-lg mb-8">
+              Through our Social Impact Tokens, we're revolutionizing wealth distribution
+              while funding vital social projects - making ethical investing work for everyone.
+            </p>
+
             <p className="text-text-secondary text-lg mb-8 max-w-2xl">
               Join the movement to make Real World Assets, Accessible, Inclusive
               and Transparent.
