@@ -207,18 +207,6 @@ const Team = () => {
         require("../assets/company-logos/hi.png"),
       ],
     },
-    {
-      name: "Murali Haripalan",
-      role: "Green Energy",
-      image: muraliImg,
-      description:
-        "Renewable energy expert with 20 years of experience in power purchase agreements, operations, and sustainable energy solutions at Vantage and Bolt Industries.",
-      companies: [
-        require("../assets/company-logos/vantage.png"),
-        require("../assets/company-logos/bolt.png"),
-        require("../assets/company-logos/vpp.png"),
-      ],
-    },
   ];
 
   const advisors = [
