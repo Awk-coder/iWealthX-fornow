@@ -9,6 +9,8 @@ import ezamshahImg from "../assets/team/ezamshah.png";
 import debuImg from "../assets/team/debu.png";
 import sabithImg from "../assets/team/sabith.png";
 import azmiImg from "../assets/team/azmi.png";
+import sharzilaImg from "../assets/team/sharzila.png";
+import hiderImg from "../assets/team/hider.png";
 
 const CompanyLogos = ({ companies }) => {
   return (
@@ -185,11 +187,31 @@ const Team = () => {
       ],
     },
     {
+      name: "Dr. Mohd Hider",
+      role: "Artificial Intelligence",
+      image: hiderImg,
+      description:
+        "15+ years in Tech, AI & Research with expertise in developing advanced artificial intelligence solutions and conducting pioneering research in machine learning applications.",
+      companies: [
+        require("../assets/company-logos/iium.png"),
+        require("../assets/company-logos/utm.png"),
+        require("../assets/company-logos/sumi.png"),
+      ],
+    },
+    {
+      name: "Intan Sharzila Hasan",
+      role: "Legal",
+      image: sharzilaImg,
+      description:
+        "20+ yrs - Securities Law, M&A, JV, Renewables expert with extensive experience in legal frameworks for financial markets and sustainable energy projects.",
+      companies: [require("../assets/company-logos/wong.png")],
+    },
+    {
       name: "Abdul Wahid Khan",
       role: "Developer Intern",
       image: awkImg,
       description:
-        "Developer Intern experienced in web development and responsive applications. Proficient in React and modern web technologies. Passionate about creating user-friendly solutions.",
+        "Full Stack developer diving into blockchain tech. Experienced in building user-facing dApps with modern web tools. Passionate about creating accessible and secure blockchain experiences.",
       companies: [require("../assets/company-logos/iwx.png")],
     },
     {
@@ -208,7 +230,7 @@ const Team = () => {
 
   const advisors = [
     {
-      name: "Dato' Prof. Dr. Azmi Omar",
+      name: "Prof. Emeritus Dr. Dato Azmi Omar",
       role: "Chairman",
       image: azmiImg,
       description:
@@ -333,8 +355,8 @@ const Team = () => {
             </p>
           </div>
 
-          {/* Team Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Team Grid - Changed back to 3 per row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {teamMembers.map((member, index) => (
               <TeamMember
                 key={index}
@@ -361,7 +383,8 @@ const Team = () => {
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Advisors Grid - Changed back to 3 per row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {advisors.map((advisor, index) => (
               <TeamMember
                 key={index}
@@ -389,7 +412,8 @@ const Team = () => {
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Values Grid - Changed back to 3 per row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
                 title: "Islamic Values",
