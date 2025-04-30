@@ -23,9 +23,9 @@ const Hero = () => {
                 <span className="text-gold">Investing</span>
               </h1>
               <p className="text-text-secondary text-xl leading-relaxed mb-10">
-                Ready to grow your wealth? Invest in high quality fractional real
-                world assets like Green energy, Gold, Agriculture, Carbon credits
-                and more with as low as 1000RM.
+                Ready to grow your wealth? Invest in high quality fractional
+                real world assets like Green energy, Gold, Agriculture, Carbon
+                credits and more with as low as 1000RM.
               </p>
               <button
                 onClick={() => setIsModalOpen(true)}
@@ -54,25 +54,33 @@ const Hero = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="bg-black/40 backdrop-blur-sm p-10 rounded-3xl border border-gold/20 hover:border-gold/30 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5">
-              <h3 className="text-2xl font-bold text-gold mb-6">Social Impact Tokens</h3>
+              <h3 className="text-2xl font-bold text-gold mb-6">
+                Social Impact Tokens
+              </h3>
               <p className="text-text-secondary text-lg leading-relaxed">
                 Through our Social Impact Tokens, we're revolutionizing wealth
-                distribution while funding vital social projects - making ethical
-                investing work for everyone.
+                distribution while funding vital social projects - making
+                ethical investing work for everyone.
               </p>
             </div>
             <div className="bg-black/40 backdrop-blur-sm p-10 rounded-3xl border border-gold/20 hover:border-gold/30 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5">
-              <h3 className="text-2xl font-bold text-gold mb-6">Join the Movement</h3>
+              <h3 className="text-2xl font-bold text-gold mb-6">
+                Investment Tokens
+              </h3>
               <p className="text-text-secondary text-lg leading-relaxed">
-                Join the movement to make Real World Assets, Accessible,
-                Inclusive and Transparent.
+                Our investment tokens allow you to own fractions of high-quality assets like real estate, 
+                green energy projects, and precious metals - making premium investments accessible to everyone.
+              </p>
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <RegisterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <RegisterModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   );
 };
