@@ -190,9 +190,7 @@ const Team = () => {
       image: awkImg,
       description:
         "Developer Intern experienced in web development and responsive applications. Proficient in React and modern web technologies. Passionate about creating user-friendly solutions.",
-      companies: [
-        require("../assets/company-logos/iwx.png"),
-      ],
+      companies: [require("../assets/company-logos/iwx.png")],
     },
     {
       name: "Helmey Haris",
@@ -336,7 +334,7 @@ const Team = () => {
           </div>
 
           {/* Team Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {teamMembers.map((member, index) => (
               <TeamMember
                 key={index}
@@ -363,7 +361,7 @@ const Team = () => {
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {advisors.map((advisor, index) => (
               <TeamMember
                 key={index}
@@ -391,7 +389,7 @@ const Team = () => {
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
               {
                 title: "Islamic Values",

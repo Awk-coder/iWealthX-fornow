@@ -20,7 +20,7 @@ const Header = () => {
     { name: "Home", path: "/" },
     { name: "Investor", path: "/investor" },
     { name: "Asset Owner", path: "/asset-owner" },
-    { name: "Academy", path: "https://academy.iwealthx.com", external: true },
+    { name: "Academy", path: "https://www.youtube.com/@iWealthX-real", external: true },
     { name: "Team", path: "/team" },
     { name: "FAQ", path: "/faq" },
     { name: "About", path: "/about" },

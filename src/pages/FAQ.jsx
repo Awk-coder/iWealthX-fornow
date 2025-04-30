@@ -149,7 +149,7 @@ To invest go to our platform and register as an Investor. We will ask you a few 
         question: "How can I learn more about iWealthX?",
         answer: `We have our iWealthX social media channels that you can follow:
 • LinkedIn: https://www.linkedin.com/company/iwealthx/posts/?feedView=all
-• YouTube Channel: https://www.youtube.com/@iwealthx
+• YouTube Channel: https://www.youtube.com/@iWealthX-real
 
 If you're interested in joining us and believe in our vision of transparent and accessible investments, reach out to us directly for more information. Our team will be happy to discuss how you can get involved.`
       },
