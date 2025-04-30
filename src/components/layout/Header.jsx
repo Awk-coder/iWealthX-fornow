@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo-name.png";
 
 const Header = () => {
@@ -15,6 +15,17 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const navItems = [
+    { name: "Home", path: "/" },
+    { name: "Investor", path: "/investor" },
+    { name: "Asset Owner", path: "/asset-owner" },
+    { name: "Academy", path: "https://academy.iwealthx.com", external: true },
+    { name: "Team", path: "/team" },
+    { name: "FAQ", path: "/faq" },
+    { name: "About", path: "/about" },
+    { name: "Contact", path: "/contact" },
+  ];
 
   return (
     <header
@@ -35,50 +46,15 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            <Link
-              to="/"
-              className="text-text-primary hover:text-gold transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              to="/investor"
-              className="text-text-primary hover:text-gold transition-colors"
-            >
-              Investor
-            </Link>
-            <Link
-              to="/asset-owner"
-              className="text-text-primary hover:text-gold transition-colors"
-            >
-              Asset Owner
-            </Link>
-            <a
-              href="https://www.youtube.com/channel/UCZKRRbxpObNoQGNzHVgewLw"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-text-primary hover:text-gold transition-colors"
-            >
-              Academy
-            </a>
-            <Link
-              to="/team"
-              className="text-text-primary hover:text-gold transition-colors"
-            >
-              Team
-            </Link>
-            <Link
-              to="/faq"
-              className="text-text-primary hover:text-gold transition-colors"
-            >
-              FAQ
-            </Link>
-            <Link
-              to="/about"
-              className="text-text-primary hover:text-gold transition-colors"
-            >
-              About
-            </Link>
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className="text-text-primary hover:text-gold transition-colors"
+              >
+                {item.name}
+              </Link>
+            ))}
           </nav>
 
           {/* Mobile menu button */}
@@ -119,50 +95,15 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <Link
-                to="/"
-                className="block text-text-primary hover:text-gold px-3 py-2"
-              >
-                Home
-              </Link>
-              <Link
-                to="/investor"
-                className="block text-text-primary hover:text-gold px-3 py-2"
-              >
-                Investor
-              </Link>
-              <Link
-                to="/asset-owner"
-                className="block text-text-primary hover:text-gold px-3 py-2"
-              >
-                Asset Owner
-              </Link>
-              <a
-                href="https://www.youtube.com/channel/UCZKRRbxpObNoQGNzHVgewLw"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-text-primary hover:text-gold px-3 py-2"
-              >
-                Academy
-              </a>
-              <Link
-                to="/team"
-                className="block text-text-primary hover:text-gold px-3 py-2"
-              >
-                Team
-              </Link>
-              <Link
-                to="/faq"
-                className="block text-text-primary hover:text-gold px-3 py-2"
-              >
-                FAQ
-              </Link>
-              <Link
-                to="/about"
-                className="block text-text-primary hover:text-gold px-3 py-2"
-              >
-                About
-              </Link>
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className="block text-text-primary hover:text-gold px-3 py-2"
+                >
+                  {item.name}
+                </Link>
+              ))}
             </div>
           </div>
         )}

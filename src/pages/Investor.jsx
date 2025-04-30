@@ -397,8 +397,129 @@ const Investor = () => {
   return (
     <div className="bg-background min-h-screen">
       <InvestorHero />
-      <GreenEnergySection />
-      <GoldDinarSection />
+
+      {/* Regular Green Energy Section - Without Charity Tokens */}
+      <section className="pt-0 pb-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section header */}
+          <div className="mb-12">
+            <h2 className="text-text-primary text-3xl font-bold mb-4">
+              Launching soon - Green Energy
+            </h2>
+            <p className="text-text-secondary italic">
+              *Projects and Images are for illustration purposes only*
+            </p>
+          </div>
+
+          {/* Project cards grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Regular Investment Projects Only */}
+            <PropertyCard
+              image={waste}
+              location="Putrajaya"
+              title="Agro Waste to Energy"
+              returnRate="7.2% Est Annual Return"
+              category="green-energy"
+              id="agro-waste-energy"
+            />
+            <PropertyCard
+              image={solar}
+              location="Malaysia"
+              title="SME Green Energy Transition"
+              returnRate="6-8% Est Annual Return"
+              category="green-energy"
+              id="enaas-solution"
+            />
+            <PropertyCard
+              image={wind}
+              location="EcoEnergy"
+              title="Wind Rural Electrification"
+              returnRate="6.8% Est Annual return"
+              category="green-energy"
+              id="wind-rural"
+            />
+            <PropertyCard
+              image={hydro}
+              location="Malaysia"
+              title="Hydro Power Expansion"
+              returnRate="8% Est Annual return"
+              category="green-energy"
+              id="hydro-power"
+            />
+            <PropertyCard
+              image={solarpanel}
+              location="Africa & Asia"
+              title="SolarGrid Initiative"
+              returnRate="7.5% Est Annual Return"
+              category="green-energy"
+              id="solar-grid"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Gold Dinar Section */}
+      <section className="pt-0 pb-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section header */}
+          <div className="mb-12">
+            <h2 className="text-text-primary text-3xl font-bold mb-4">
+              Launching soon - Gold Dinar
+            </h2>
+            <p className="text-text-secondary italic">
+              *Projects and Images are for illustration purposes only*
+            </p>
+          </div>
+
+          {/* Gold card in the grid layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <PropertyCard
+              image={dinar}
+              location="Bursa Malaysia"
+              title="Gold Dinar"
+              returnRate="10.5% Est Annual return"
+              category="gold"
+              id="gold-dinar"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Charity Tokens Section */}
+      <section className="pt-0 pb-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section header */}
+          <div className="mb-12">
+            <h2 className="text-text-primary text-3xl font-bold mb-4">
+              Social Impact Projects
+            </h2>
+            <p className="text-text-secondary italic">
+              Make a difference with our charity tokens
+            </p>
+          </div>
+
+          {/* Charity tokens grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <PropertyCard
+              image={waqf}
+              location="Bangi"
+              title="Waqf Solar for Surau"
+              returnRate="No Returns - Charity"
+              category="green-energy"
+              id="waqf-solar-surau"
+            />
+            <PropertyCard
+              image={health}
+              location="Hyderabad, India"
+              title="Mujtaba Helping Foundation"
+              returnRate="No Returns - Charity"
+              category="green-energy"
+              id="mujtaba-health-charity"
+            />
+          </div>
+        </div>
+      </section>
+
       <RealEstateSection />
       <HowItWorksSection />
       <ChangeWorldSection />
