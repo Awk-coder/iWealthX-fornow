@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import RegisterModal from "../RegisterModal";
 import gridImage from "../../assets/img-grid-hero.png";
+import JoinUsCTA from "./JoinUsCTA";
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Common description for both token types to ensure identical height
+  const tokenDescription =
+    "Fractional ownership of premium real-world assets making quality investments accessible to everyone while creating positive impact.";
 
   return (
     <>
@@ -49,31 +54,36 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* Explainer Section */}
+      {/* Tokens Explainer Section */}
       <section className="py-20 bg-gradient-to-b from-background to-black/95">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="bg-black/40 backdrop-blur-sm p-10 rounded-3xl border border-gold/20 hover:border-gold/30 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5">
-              <h3 className="text-2xl font-bold text-gold mb-6">
-                Social Impact Tokens
-              </h3>
-              <p className="text-text-secondary text-lg leading-relaxed">
-                Through our Social Impact Tokens, we're revolutionizing wealth
-                distribution while funding vital social projects - making
-                ethical investing work for everyone.
-              </p>
-            </div>
-            <div className="bg-black/40 backdrop-blur-sm p-10 rounded-3xl border border-gold/20 hover:border-gold/30 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-black/40 backdrop-blur-sm p-10 rounded-3xl border border-gold/20 hover:border-gold/30 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5 h-full">
               <h3 className="text-2xl font-bold text-gold mb-6">
                 Investment Tokens
               </h3>
               <p className="text-text-secondary text-lg leading-relaxed">
-                Our investment tokens let you own fractions of premium assets like real estate and green energy - making quality investments accessible to all.
+                Own fractions of premium real-world assets like green energy and
+                gold. Our investment tokens make high-quality investments
+                accessible to all with potential returns and asset growth.
+              </p>
+            </div>
+            <div className="bg-black/40 backdrop-blur-sm p-10 rounded-3xl border border-gold/20 hover:border-gold/30 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5 h-full">
+              <h3 className="text-2xl font-bold text-gold mb-6">
+                Social Impact Tokens
+              </h3>
+              <p className="text-text-secondary text-lg leading-relaxed">
+                Create positive change with our social impact tokens. Fund vital
+                community projects while revolutionizing wealth distribution and
+                making ethical investing work for everyone.
               </p>
             </div>
           </div>
         </div>
       </section>
+
+      {/* New Join Us CTA Section */}
+      <JoinUsCTA />
 
       <RegisterModal
         isOpen={isModalOpen}

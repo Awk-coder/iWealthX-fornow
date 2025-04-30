@@ -135,13 +135,25 @@ const Testimonials = () => {
             People Interested in iWealthX
           </h3>
 
-          {/* Stats counter */}
-          <div className="max-w-xs mx-auto bg-black/40 backdrop-blur-sm p-8 rounded-3xl border border-gold/20 hover:border-gold/30 transition-all duration-500 transform hover:scale-105 hover:shadow-xl hover:shadow-gold/10 mb-16">
-            <AnimatedCounter
-              endValue={100}
-              duration={2000}
-              label="Growing Community"
-            />
+          {/* Stats counters in separate cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto mb-16">
+            {/* Community counter card */}
+            <div className="bg-black/30 backdrop-blur-sm p-8 rounded-3xl border border-gold/20 hover:border-gold/40 transition-all duration-500 hover:shadow-xl hover:shadow-gold/10 transform hover:scale-105">
+              <AnimatedCounter
+                endValue={100}
+                duration={2000}
+                label="Growing Community"
+              />
+            </div>
+
+            {/* Countries counter card */}
+            <div className="bg-black/30 backdrop-blur-sm p-8 rounded-3xl border border-gold/20 hover:border-gold/40 transition-all duration-500 hover:shadow-xl hover:shadow-gold/10 transform hover:scale-105">
+              <AnimatedCounter
+                endValue={15}
+                duration={1500}
+                label="Countries"
+              />
+            </div>
           </div>
         </div>
       </div>
