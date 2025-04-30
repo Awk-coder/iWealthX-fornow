@@ -1,117 +1,141 @@
 import React from "react";
 
-const TestimonialCard = ({ image, name, role, company, quote }) => {
+const PeopleCard = ({ name }) => {
   return (
-    <div className="relative group rounded-3xl bg-black/30 p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-gold/20">
-      {/* Content */}
-      <div className="flex flex-col">
-        <p className="text-text-primary text-lg leading-relaxed mb-8 opacity-90 italic">
-          "{quote}"
-        </p>
-
-        {/* Author info */}
-        <div className="flex items-center mt-auto">
-          <img
-            src={`https://randomuser.me/api/portraits/${image}`}
-            alt={name}
-            className="w-14 h-14 rounded-full border-2 border-gold/30 group-hover:border-gold/50 transition-all duration-500"
-          />
-          <div className="ml-4">
-            <h4 className="text-text-primary font-bold group-hover:text-gold transition-colors duration-300">
-              {name}
-            </h4>
-            <p className="text-text-secondary text-sm">
-              {role} at {company}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Gold border */}
-      <div className="absolute inset-0 border border-gold/30 rounded-3xl pointer-events-none transition-all duration-500 group-hover:border-gold/50 group-hover:border-2"></div>
+    <div className="bg-black/30 py-3 px-6 rounded-full border border-gold/30 min-w-max mx-2 backdrop-blur-sm transition-all hover:border-gold/50 hover:shadow-md hover:shadow-gold/10">
+      <span className="text-text-primary whitespace-nowrap">{name}</span>
     </div>
   );
 };
 
 const Testimonials = () => {
-  const testimonials = [
+  // List of names for the flowing animation
+  const peopleNames = [
+    "Segar",
+    "R.Kamalan",
+    "Fera Aisyah Mohamad",
+    "Jamil",
+    "Luqman Sazaki",
+    "Khairul Nazrene",
+    "Fadhil",
+    "Abdul Muneeb Dar",
+    "Ahmad Fathi bin Zawa",
+    "Jabbar Azmil",
+    "Ajani Ibrahim Tunde",
+    "Johan Zep Bin Md Yus",
+    "Naima Ado",
+    "Weseem Ahmed",
+    "Zafrul Noordin",
+    "Nimotallahi Durojaiye",
+    "Ariful Haque",
+    "HAMID AHMED",
+    "Md Tanzirul Amin",
+    "Muaz Azhari",
+    "Sabith Khan",
+    "Farhan",
+    "Hamza Aziz",
+    "Bakythek",
+    "Hakim Roslan",
+    "Adamu Anas Sambo",
+    "Muhammad Aiman Mol",
+    "Parsa",
+    "Arya",
+    "Syed Omar",
+    "Anass",
+    "Ahmad Sulaiman",
+  ];
+
+  // Create multiple rows with different speeds
+  const rows = [
     {
-      image: "men/75.jpg",
-      name: "Ali Abu",
-      role: "Marketer",
-      company: "Petronas",
-      quote:
-        "The platform makes real-world asset investing straightforward and efficient. The returns have been consistently strong, exceeding my expectations.",
+      speed: 35,
+      direction: "left",
+      names: [...peopleNames].sort(() => Math.random() - 0.5),
     },
     {
-      image: "men/45.jpg",
-      name: "Salahuddin",
-      role: "Banker",
-      company: "Maybank",
-      quote:
-        "The transparency and ease of use are impressive. It's perfect for generating passive income from real estate without the usual complexities and barriers to entry.",
+      speed: 45,
+      direction: "right",
+      names: [...peopleNames].sort(() => Math.random() - 0.5),
     },
     {
-      image: "women/65.jpg",
-      name: "Siti Fatima",
-      role: "Cashier",
-      company: "7/11",
-      quote:
-        "The investment process is remarkably straightforward and efficient. Everything is smooth and hassle-free, making it easy to manage investments and track returns.",
-    },
-    {
-      image: "men/25.jpg",
-      name: "Mohammed Zaki",
-      role: "Manager",
-      company: "CIMB",
-      quote:
-        "As an experienced investor, I appreciate the diverse investment options in real estate, gold, and green energy. It's been excellent for portfolio diversification.",
-    },
-    {
-      image: "men/55.jpg",
-      name: "Ibrahim",
-      role: "Designer",
-      company: "Google",
-      quote:
-        "The platform offers innovative investment opportunities that align perfectly with modern portfolio strategies. The user experience is top-notch.",
-    },
-    {
-      image: "women/45.jpg",
-      name: "Nur Asikyan",
-      role: "Procurement",
-      company: "TNB",
-      quote:
-        "The tokenized investment approach makes portfolio diversification accessible and manageable. The future of investing is definitely here.",
+      speed: 30,
+      direction: "left",
+      names: [...peopleNames].sort(() => Math.random() - 0.5),
     },
   ];
 
   return (
-    <section className="py-32 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 bg-background overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         {/* Section header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-12">
           <h2 className="text-gold text-xl font-medium tracking-wider uppercase mb-4">
-            Testimonials
+            Growing Community
           </h2>
           <h3 className="text-text-primary text-5xl font-bold">
-            What the People Say
+            People Interested in iWealthX
           </h3>
         </div>
-
-        {/* Testimonials grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <TestimonialCard
-              key={index}
-              image={testimonial.image}
-              name={testimonial.name}
-              role={testimonial.role}
-              company={testimonial.company}
-              quote={testimonial.quote}
-            />
-          ))}
-        </div>
       </div>
+
+      {/* Flowing cards */}
+      <div className="space-y-8">
+        {rows.map((row, rowIndex) => (
+          <div key={rowIndex} className="relative flex items-center">
+            <div
+              className={`flex animate-flow-${row.direction}`}
+              style={{
+                "--flow-speed": `${row.speed}s`,
+                animation: `flow-${row.direction} ${row.speed}s linear infinite`,
+              }}
+            >
+              {row.names.map((name, nameIndex) => (
+                <PeopleCard key={`${rowIndex}-${nameIndex}`} name={name} />
+              ))}
+            </div>
+            <div
+              className={`flex animate-flow-${row.direction}`}
+              style={{
+                "--flow-speed": `${row.speed}s`,
+                animation: `flow-${row.direction} ${row.speed}s linear infinite`,
+                animationDelay: `${-row.speed / 2}s`,
+              }}
+            >
+              {row.names.map((name, nameIndex) => (
+                <PeopleCard key={`${rowIndex}-${nameIndex}-dup`} name={name} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <style jsx>{`
+        @keyframes flow-left {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        @keyframes flow-right {
+          0% {
+            transform: translateX(-50%);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+
+        .animate-flow-left {
+          animation: flow-left var(--flow-speed) linear infinite;
+        }
+
+        .animate-flow-right {
+          animation: flow-right var(--flow-speed) linear infinite;
+        }
+      `}</style>
     </section>
   );
 };

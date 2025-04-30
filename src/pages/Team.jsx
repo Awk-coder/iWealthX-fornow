@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import saifImg from "../assets/team/saif.png";
 import azmathImg from "../assets/team/azmath.png";
-import muraliImg from "../assets/team/murali.png";
 import awkImg from "../assets/team/awk.png";
 import helmeyImg from "../assets/team/helmey.png";
 import akramImg from "../assets/team/akram.png";
