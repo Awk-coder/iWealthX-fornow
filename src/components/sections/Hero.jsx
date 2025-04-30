@@ -68,8 +68,7 @@ const Hero = () => {
                 Investment Tokens
               </h3>
               <p className="text-text-secondary text-lg leading-relaxed">
-                Our investment tokens allow you to own fractions of high-quality assets like real estate, 
-                green energy projects, and precious metals - making premium investments accessible to everyone.
+                Our investment tokens let you own fractions of premium assets like real estate and green energy - making quality investments accessible to all.
               </p>
             </div>
           </div>
