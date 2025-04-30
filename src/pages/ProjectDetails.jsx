@@ -582,26 +582,22 @@ const ProjectDetails = () => {
                   ))}
                 </div>
 
-                {/* Risk Warning */}
-                <div className="mt-6 mb-8 bg-black/40 border border-gold/30 rounded-lg p-4">
-                  <p className="text-text-secondary text-sm">
-                    <span className="text-gold font-medium">Risk Warning:</span> This is an equity investment. The value of your investment can go down as well as up. Your capital is at risk and returns are not guaranteed.
-                  </p>
-                </div>
-
                 {/* CTA Button */}
-                <button
-                  onClick={() =>
-                    navigate("/investor-form", {
-                      state: {
-                        projectDetails: `${project.title} - ${project.location}`,
-                      },
-                    })
-                  }
-                  className="w-full bg-gold text-background px-8 py-4 rounded-lg text-lg font-medium hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-gold/20 mt-8"
-                >
-                  Invest Now
-                </button>
+                <div>
+                  <button
+                    onClick={() =>
+                      navigate("/investor-form", {
+                        state: {
+                          projectDetails: `${project.title} - ${project.location}`,
+                        },
+                      })
+                    }
+                    className="w-full bg-gold text-background px-8 py-4 rounded-lg text-lg font-medium hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-gold/20 group relative overflow-hidden"
+                  >
+                    <span className="relative z-10">Invest Now</span>
+                    <div className="absolute inset-0 bg-white/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

@@ -51,11 +51,6 @@ const InvestorFormHero = () => {
 
           {/* Right content - Form */}
           <div className="flex-1 w-full lg:max-w-xl">
-            <div className="mt-6 mb-8 bg-black/40 border border-gold/30 rounded-lg p-4">
-              <p className="text-text-secondary text-sm">
-                <span className="text-gold font-medium">Important:</span> Please note that all investments on iWealthX are equity investments where your capital is at risk. The value of your investment can go down as well as up. Returns are not guaranteed.
-              </p>
-            </div>
             <form onSubmit={handleSubmit} className="space-y-12 w-full">
               <div>
                 <label

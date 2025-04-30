@@ -40,7 +40,15 @@ const InvestorHero = () => {
   );
 };
 
-const PropertyCard = ({ image, location, title, returnRate, category, id, isPilot }) => {
+const PropertyCard = ({
+  image,
+  location,
+  title,
+  returnRate,
+  category,
+  id,
+  isPilot,
+}) => {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
@@ -61,7 +69,7 @@ const PropertyCard = ({ image, location, title, returnRate, category, id, isPilo
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
-        
+
         {/* Pilot badge */}
         {isPilot && (
           <div className="absolute top-4 right-4 bg-gold text-background px-4 py-1 rounded-full font-bold text-sm shadow-lg transform rotate-2">
@@ -157,32 +165,18 @@ const RealEstateSection = () => {
 const GreenEnergySection = () => {
   const projects = [
     {
+      image: solar,
+      location: "Malaysia",
+      title: "Enaas Solution",
+      returnRate: "6-8% Est Annual Return",
+      id: "enaas-solution",
+    },
+    {
       image: waste,
       location: "Putrajaya",
       title: "Agro Waste to Energy",
       returnRate: "7.2% Est Annual Return",
       id: "agro-waste-energy",
-    },
-    {
-      image: solar,
-      location: "Malaysia",
-      title: "SME Green Energy Transition",
-      returnRate: "6-8% Est Annual Return",
-      id: "enaas-solution",
-    },
-    {
-      image: waqf,
-      location: "Bangi",
-      title: "Waqf Solar for Surau",
-      returnRate: "No Returns - Charity",
-      id: "waqf-solar-surau",
-    },
-    {
-      image: health,
-      location: "Hyderabad, India",
-      title: "Mujtaba Helping Foundation",
-      returnRate: "No Returns - Charity",
-      id: "mujtaba-health-charity",
     },
     {
       image: wind,
@@ -226,7 +220,7 @@ const GreenEnergySection = () => {
           <PropertyCard
             image={solar}
             location="Malaysia"
-            title="SME Green Energy Transition"
+            title="Enaas Solution"
             returnRate="6-8% Est Annual Return"
             category="green-energy"
             id="enaas-solution"
@@ -434,34 +428,37 @@ const ChangeWorldSection = () => {
 const Investor = () => {
   return (
     <div className="bg-background min-h-screen">
-      <section className="bg-background py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-black/40 border border-gold/30 rounded-lg p-4 text-center">
-            <p className="text-text-secondary text-sm">
-              <span className="text-gold font-medium">Important:</span> These are equity investments. The value of your investment can go down as well as up. Your capital is at risk.
-            </p>
-          </div>
-        </div>
+      <section className="bg-background">
+        <InvestorHero />
       </section>
 
-      <InvestorHero />
-
-      {/* Regular Green Energy Section - Without Charity Tokens */}
-      <section className="pt-0 pb-16 bg-background">
+      {/* Green Energy Section */}
+      <section className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section header */}
-          <div className="mb-12">
-            <h2 className="text-text-primary text-3xl font-bold mb-4">
-              Launching soon - Green Energy
+          <div className="text-center mb-16">
+            <h2 className="text-gold text-xl font-medium tracking-wider uppercase mb-4">
+              Launching soon
             </h2>
-            <p className="text-text-secondary italic">
-              *Projects and Images are for illustration purposes only*
+            <h3 className="text-text-primary text-5xl font-bold mb-6">
+              Green Energy
+            </h3>
+            <p className="text-text-secondary text-lg max-w-3xl mx-auto">
+              <i>*Projects and Images are for illustration purposes only*</i>
             </p>
           </div>
 
           {/* Project cards grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Regular Investment Projects Only */}
+            {/* Enaas Solution - first with pilot badge */}
+            <PropertyCard
+              image={solar}
+              location="Malaysia"
+              title="Enaas Solution"
+              returnRate="6-8% Est Annual Return"
+              category="green-energy"
+              id="enaas-solution"
+              isPilot={true}
+            />
             <PropertyCard
               image={waste}
               location="Putrajaya"
@@ -469,14 +466,6 @@ const Investor = () => {
               returnRate="7.2% Est Annual Return"
               category="green-energy"
               id="agro-waste-energy"
-            />
-            <PropertyCard
-              image={solar}
-              location="Malaysia"
-              title="SME Green Energy Transition"
-              returnRate="6-8% Est Annual Return"
-              category="green-energy"
-              id="enaas-solution"
             />
             <PropertyCard
               image={wind}

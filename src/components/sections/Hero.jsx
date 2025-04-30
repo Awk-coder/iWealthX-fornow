@@ -40,7 +40,7 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-white/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
               </button>
               <p className="mt-4 text-text-secondary text-sm italic">
-                Remember: The value of investments can go down as well as up. Your capital is at risk.
+                Investments are subject to market risks. Please read the offer document carefully before investing.
               </p>
             </div>
 
