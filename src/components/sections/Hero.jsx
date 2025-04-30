@@ -71,7 +71,6 @@ const Hero = () => {
                 Our investment tokens allow you to own fractions of high-quality assets like real estate, 
                 green energy projects, and precious metals - making premium investments accessible to everyone.
               </p>
-              </p>
             </div>
           </div>
         </div>
