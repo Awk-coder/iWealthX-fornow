@@ -40,7 +40,7 @@ const InvestorHero = () => {
   );
 };
 
-const PropertyCard = ({ image, location, title, returnRate, category, id }) => {
+const PropertyCard = ({ image, location, title, returnRate, category, id, isPilot }) => {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
@@ -61,6 +61,13 @@ const PropertyCard = ({ image, location, title, returnRate, category, id }) => {
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
+        
+        {/* Pilot badge */}
+        {isPilot && (
+          <div className="absolute top-4 right-4 bg-gold text-background px-4 py-1 rounded-full font-bold text-sm shadow-lg transform rotate-2">
+            Pilot
+          </div>
+        )}
       </div>
 
       {/* Content */}
@@ -215,17 +222,48 @@ const GreenEnergySection = () => {
 
         {/* Project cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <PropertyCard
-              key={index}
-              image={project.image}
-              location={project.location}
-              title={project.title}
-              returnRate={project.returnRate}
-              category="green-energy"
-              id={project.id}
-            />
-          ))}
+          {/* SME Green Energy Transition - now first and marked as pilot */}
+          <PropertyCard
+            image={solar}
+            location="Malaysia"
+            title="SME Green Energy Transition"
+            returnRate="6-8% Est Annual Return"
+            category="green-energy"
+            id="enaas-solution"
+            isPilot={true}
+          />
+          <PropertyCard
+            image={waste}
+            location="Putrajaya"
+            title="Agro Waste to Energy"
+            returnRate="7.2% Est Annual Return"
+            category="green-energy"
+            id="agro-waste-energy"
+          />
+          <PropertyCard
+            image={wind}
+            location="EcoEnergy"
+            title="Wind Rural Electrification"
+            returnRate="6.8% Est Annual return"
+            category="green-energy"
+            id="wind-rural"
+          />
+          <PropertyCard
+            image={hydro}
+            location="Malaysia"
+            title="Hydro Power Expansion"
+            returnRate="8% Est Annual return"
+            category="green-energy"
+            id="hydro-power"
+          />
+          <PropertyCard
+            image={solarpanel}
+            location="Africa & Asia"
+            title="SolarGrid Initiative"
+            returnRate="7.5% Est Annual Return"
+            category="green-energy"
+            id="solar-grid"
+          />
         </div>
       </div>
     </section>
