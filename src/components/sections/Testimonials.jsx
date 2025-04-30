@@ -1,4 +1,63 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+
+// Counter component that animates counting up
+const AnimatedCounter = ({ endValue, duration, label }) => {
+  const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const counterRef = useRef(null);
+
+  // Intersection Observer to start animation when in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (counterRef.current) {
+      observer.observe(counterRef.current);
+    }
+
+    return () => {
+      if (counterRef.current) {
+        observer.unobserve(counterRef.current);
+      }
+    };
+  }, []);
+
+  // Counter animation
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const steps = 50; // Number of steps in animation
+    const stepDuration = duration / steps;
+    let currentStep = 0;
+
+    const timer = setInterval(() => {
+      currentStep += 1;
+      const progress = currentStep / steps;
+      const currentCount = Math.floor(progress * endValue);
+
+      setCount(currentCount);
+
+      if (currentStep >= steps) {
+        clearInterval(timer);
+      }
+    }, stepDuration);
+
+    return () => clearInterval(timer);
+  }, [endValue, duration, isVisible]);
+
+  return (
+    <div ref={counterRef} className="text-center">
+      <div className="text-gold text-5xl lg:text-6xl font-bold">{count}+</div>
+      <div className="text-text-secondary mt-2 text-lg">{label}</div>
+    </div>
+  );
+};
 
 const PeopleCard = ({ name }) => {
   return (
@@ -68,13 +127,22 @@ const Testimonials = () => {
     <section className="py-24 bg-background overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         {/* Section header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <h2 className="text-gold text-xl font-medium tracking-wider uppercase mb-4">
             Growing Community
           </h2>
-          <h3 className="text-text-primary text-5xl font-bold">
+          <h3 className="text-text-primary text-5xl font-bold mb-10">
             People Interested in iWealthX
           </h3>
+
+          {/* Stats counter */}
+          <div className="max-w-xs mx-auto bg-black/40 backdrop-blur-sm p-8 rounded-3xl border border-gold/20 hover:border-gold/30 transition-all duration-500 transform hover:scale-105 hover:shadow-xl hover:shadow-gold/10 mb-16">
+            <AnimatedCounter
+              endValue={100}
+              duration={2000}
+              label="Growing Community"
+            />
+          </div>
         </div>
       </div>
 
