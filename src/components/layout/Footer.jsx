@@ -75,9 +75,11 @@ const Footer = () => {
           </div>
 
           {/* Copyright */}
-          <div className="text-text-secondary text-sm">
-            Copyright © {new Date().getFullYear()} | iWealthX | All Rights
-            Reserved
+          <div className="mt-8 pt-6 border-t border-gray-800 text-center">
+            <p className="text-text-secondary text-xs mb-4">
+              Investment Warning: All investments on iWealthX are equity investments. The value of your investment can go down as well as up. Your capital is at risk. Past performance is not a reliable indicator of future results.
+            </p>
+            <p>&copy; {new Date().getFullYear()} iWealthX. All rights reserved.</p>
           </div>
         </div>
       </div>

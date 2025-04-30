@@ -66,6 +66,12 @@ const RegisterModal = ({ isOpen, onClose }) => {
           ))}
         </div>
 
+        <div className="mb-6 bg-black/40 border border-gold/30 rounded-lg p-3">
+          <p className="text-text-secondary text-xs">
+            By registering, you acknowledge that any investments made through iWealthX are equity investments where your capital is at risk. The value of your investment can go down as well as up, and returns are not guaranteed.
+          </p>
+        </div>
+
         {/* Close button */}
         <button
           onClick={onClose}

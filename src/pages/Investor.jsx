@@ -434,6 +434,16 @@ const ChangeWorldSection = () => {
 const Investor = () => {
   return (
     <div className="bg-background min-h-screen">
+      <section className="bg-background py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-black/40 border border-gold/30 rounded-lg p-4 text-center">
+            <p className="text-text-secondary text-sm">
+              <span className="text-gold font-medium">Important:</span> These are equity investments. The value of your investment can go down as well as up. Your capital is at risk.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <InvestorHero />
 
       {/* Regular Green Energy Section - Without Charity Tokens */}

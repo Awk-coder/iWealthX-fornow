@@ -582,6 +582,13 @@ const ProjectDetails = () => {
                   ))}
                 </div>
 
+                {/* Risk Warning */}
+                <div className="mt-6 mb-8 bg-black/40 border border-gold/30 rounded-lg p-4">
+                  <p className="text-text-secondary text-sm">
+                    <span className="text-gold font-medium">Risk Warning:</span> This is an equity investment. The value of your investment can go down as well as up. Your capital is at risk and returns are not guaranteed.
+                  </p>
+                </div>
+
                 {/* CTA Button */}
                 <button
                   onClick={() =>
