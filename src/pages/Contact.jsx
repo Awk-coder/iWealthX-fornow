@@ -39,7 +39,7 @@ const Contact = () => {
             <ContactCard
               icon={<FaPhone />}
               title="Phone"
-              details="+60 12-904 2153"
+              details="+60 12-352 4656"
             />
             <ContactCard
               icon={<FaMapMarkerAlt />}
