@@ -11,7 +11,11 @@ const Header = () => {
     { name: "Home", path: "/" },
     { name: "Investor", path: "/investor" },
     { name: "Asset Owner", path: "/asset-owner" },
-    { name: "Academy", path: "https://www.youtube.com/@iWealthX-real", external: true },
+    {
+      name: "Academy",
+      path: "https://www.youtube.com/@iWealthX-real",
+      external: true,
+    },
     { name: "Team", path: "/team" },
     { name: "FAQ", path: "/faq" },
     { name: "About", path: "/about" },
@@ -55,20 +59,29 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.external ? undefined : item.path}
-                href={item.external ? item.path : undefined}
-                target={item.external ? "_blank" : undefined}
-                rel={item.external ? "noopener noreferrer" : undefined}
-                className={`text-text-primary hover:text-gold transition-colors ${
-                  location.pathname === item.path ? "text-gold" : ""
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navItems.map((item) =>
+              item.external ? (
+                <a
+                  key={item.name}
+                  href={item.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-primary hover:text-gold transition-colors"
+                >
+                  {item.name}
+                </a>
+              ) : (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className={`text-text-primary hover:text-gold transition-colors ${
+                    location.pathname === item.path ? "text-gold" : ""
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              )
+            )}
           </nav>
 
           {/* Mobile menu button */}
@@ -110,20 +123,29 @@ const Header = () => {
         }`}
       >
         <nav className="flex flex-col space-y-4 px-4 pb-4">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.external ? undefined : item.path}
-              href={item.external ? item.path : undefined}
-              target={item.external ? "_blank" : undefined}
-              rel={item.external ? "noopener noreferrer" : undefined}
-              className={`text-text-primary hover:text-gold transition-colors py-2 ${
-                location.pathname === item.path ? "text-gold" : ""
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navItems.map((item) =>
+            item.external ? (
+              <a
+                key={item.name}
+                href={item.path}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-text-primary hover:text-gold transition-colors py-2"
+              >
+                {item.name}
+              </a>
+            ) : (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`text-text-primary hover:text-gold transition-colors py-2 ${
+                  location.pathname === item.path ? "text-gold" : ""
+                }`}
+              >
+                {item.name}
+              </Link>
+            )
+          )}
         </nav>
       </div>
     </header>

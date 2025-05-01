@@ -76,7 +76,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <div className="mt-8 pt-6 border-t border-gray-800 text-center">
-            <p>&copy; {new Date().getFullYear()} iWealthX. All rights reserved.</p>
+            <p className="text-text-primary">&copy; {new Date().getFullYear()} iWealthX. All rights reserved.</p>
           </div>
         </div>
       </div>
