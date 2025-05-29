@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import RegisterModal from "../components/RegisterModal";
 import gridImage from "../assets/img-grid-hero.png";
 
 const AboutHero = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const stats = [
     {
@@ -36,17 +37,18 @@ const AboutHero = () => {
             </h1>
             <div className="text-text-secondary text-xl leading-relaxed">
               <p className="mb-6">
-                At iWealthX, we make real-world investments accessible, Inclusive,
-                and Transparent. Our platform enables secure, ethical and Shariah-compliant
-                investments in assets like real estate, green energy,
-                agriculture, gold, precious minerals, carbon credits, etc.
+                At iWealthX, we make real-world investments accessible,
+                Inclusive, and Transparent. Our platform enables secure, ethical
+                and Shariah-compliant investments in assets like real estate,
+                green energy, agriculture, gold, precious minerals, carbon
+                credits, etc.
               </p>
               <p className="mb-6">
                 With as little as RM1000 (Approx. $220), anyone can start
                 building real wealth and passive income while aligning their
-                portfolio with their values. Our social impact tokens allow investors to
-                support sustainable development and social impact initiatives
-                utilizing Zakat, Sadaqah, Waqf or CSR funding.
+                portfolio with their values. Our social impact tokens allow
+                investors to support sustainable development and social impact
+                initiatives utilizing Zakat, Sadaqah, Waqf or CSR funding.
               </p>
               <p>
                 Join us to unlock the $30 trillion opportunity in real-world
@@ -92,7 +94,7 @@ const AboutHero = () => {
         {/* CTA Button */}
         <div className="text-center mt-20">
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => navigate("/kyc")}
             className="bg-gold text-background px-10 py-4 rounded-lg text-lg font-medium hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-gold/20 group relative overflow-hidden inline-flex items-center"
           >
             <span className="relative z-10">Get Started</span>
@@ -100,11 +102,6 @@ const AboutHero = () => {
           </button>
         </div>
       </div>
-
-      <RegisterModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </section>
   );
 };

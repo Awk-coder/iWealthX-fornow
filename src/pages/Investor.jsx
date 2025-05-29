@@ -162,145 +162,6 @@ const RealEstateSection = () => {
   );
 };
 
-const GreenEnergySection = () => {
-  const projects = [
-    {
-      image: solar,
-      location: "Malaysia",
-      title: "Enaas Solution",
-      returnRate: "6-8% Est Annual Return",
-      id: "enaas-solution",
-    },
-    {
-      image: waste,
-      location: "Putrajaya",
-      title: "Agro Waste to Energy",
-      returnRate: "7.2% Est Annual Return",
-      id: "agro-waste-energy",
-    },
-    {
-      image: wind,
-      location: "EcoEnergy",
-      title: "Wind Rural Electrification",
-      returnRate: "6.8% Est Annual return",
-      id: "wind-rural",
-    },
-    {
-      image: hydro,
-      location: "Malaysia",
-      title: "Hydro Power Expansion",
-      returnRate: "8% Est Annual return",
-      id: "hydro-power",
-    },
-    {
-      image: solarpanel,
-      location: "Africa & Asia",
-      title: "SolarGrid Initiative",
-      returnRate: "7.5% Est Annual Return",
-      id: "solar-grid",
-    },
-  ];
-
-  return (
-    <section className="pt-0 pb-16 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <div className="mb-12">
-          <h2 className="text-text-primary text-3xl font-bold mb-4">
-            Launching soon - Green Energy
-          </h2>
-          <p className="text-text-secondary italic">
-            *Projects and Images are for illustration purposes only*
-          </p>
-        </div>
-
-        {/* Project cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* SME Green Energy Transition - now first and marked as pilot */}
-          <PropertyCard
-            image={solar}
-            location="Malaysia"
-            title="Enaas Solution"
-            returnRate="6-8% Est Annual Return"
-            category="green-energy"
-            id="enaas-solution"
-            isPilot={true}
-          />
-          <PropertyCard
-            image={waste}
-            location="Putrajaya"
-            title="Agro Waste to Energy"
-            returnRate="7.2% Est Annual Return"
-            category="green-energy"
-            id="agro-waste-energy"
-          />
-          <PropertyCard
-            image={wind}
-            location="EcoEnergy"
-            title="Wind Rural Electrification"
-            returnRate="6.8% Est Annual return"
-            category="green-energy"
-            id="wind-rural"
-          />
-          <PropertyCard
-            image={hydro}
-            location="Malaysia"
-            title="Hydro Power Expansion"
-            returnRate="8% Est Annual return"
-            category="green-energy"
-            id="hydro-power"
-          />
-          <PropertyCard
-            image={solarpanel}
-            location="Africa & Asia"
-            title="SolarGrid Initiative"
-            returnRate="7.5% Est Annual Return"
-            category="green-energy"
-            id="solar-grid"
-          />
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const GoldDinarSection = () => {
-  const project = {
-    image: dinar,
-    location: "Bursa Malaysia",
-    title: "Gold Dinar",
-    returnRate: "10.5% Est Annual return",
-  };
-
-  return (
-    <section className="pt-0 pb-16 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <div className="mb-12">
-          <h2 className="text-text-primary text-3xl font-bold mb-4">
-            Launching soon - Gold Dinar
-          </h2>
-          <p className="text-text-secondary italic">
-            *Projects and Images are for illustration purposes only*
-          </p>
-        </div>
-
-        {/* Single card centered */}
-        <div className="max-w-xl mx-auto">
-          <PropertyCard
-            image={project.image}
-            location={project.location}
-            title={project.title}
-            returnRate={project.returnRate}
-            category="gold"
-            id="gold-dinar"
-          />
-        </div>
-      </div>
-    </section>
-  );
-};
-
 const FeatureCard = ({ image, title, description }) => {
   return (
     <div className="relative group rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-gold/20">
@@ -381,7 +242,7 @@ const HowItWorksSection = () => {
 };
 
 const ChangeWorldSection = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <section className="py-16 bg-background">
@@ -397,7 +258,7 @@ const ChangeWorldSection = () => {
               solutions that are accessible, inclusive, and transparent
             </p>
             <button
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => navigate("/kyc")}
               className="bg-gold text-background px-8 py-4 rounded-lg text-lg font-medium hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-gold/20 group relative overflow-hidden"
             >
               <span className="relative z-10">Get started</span>
@@ -416,11 +277,6 @@ const ChangeWorldSection = () => {
           </div>
         </div>
       </div>
-
-      <RegisterModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </section>
   );
 };

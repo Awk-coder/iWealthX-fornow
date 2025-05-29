@@ -7,6 +7,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
+  // Simplified navigation - only marketing pages and main entry points
   const navItems = [
     { name: "Home", path: "/" },
     { name: "Investor", path: "/investor" },
@@ -21,6 +22,15 @@ const Header = () => {
     { name: "About", path: "/about" },
     { name: "Contact", path: "/contact" },
   ];
+
+  // Check if we're on a dashboard page
+  const isDashboardPage = [
+    "/dashboard",
+    "/opportunities",
+    "/wallet",
+    "/issuer",
+    "/kyc",
+  ].some((path) => location.pathname.startsWith(path));
 
   // Close mobile menu when location changes (user navigates to a new page)
   useEffect(() => {
@@ -47,14 +57,16 @@ const Header = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-black/80 backdrop-blur-md py-4" : "bg-transparent py-6"
+        isScrolled || isDashboardPage
+          ? "bg-black/80 backdrop-blur-md py-4"
+          : "bg-transparent py-6"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
-            <img src={logo} alt="iWealthX Logo" className="h-10" />
+            <img src={logo} alt="iWealthX Logo" className="h-12" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -81,6 +93,16 @@ const Header = () => {
                   {item.name}
                 </Link>
               )
+            )}
+
+            {/* KYC Entry Button */}
+            {!isDashboardPage && (
+              <Link
+                to="/kyc"
+                className="bg-gold text-background px-6 py-2 rounded-lg font-medium hover:bg-opacity-90 transition-all"
+              >
+                Start Investing
+              </Link>
             )}
           </nav>
 
@@ -145,6 +167,16 @@ const Header = () => {
                 {item.name}
               </Link>
             )
+          )}
+
+          {/* Mobile KYC Link */}
+          {!isDashboardPage && (
+            <Link
+              to="/kyc"
+              className="bg-gold text-background px-6 py-2 rounded-lg font-medium hover:bg-opacity-90 transition-all text-center"
+            >
+              Start Investing
+            </Link>
           )}
         </nav>
       </div>

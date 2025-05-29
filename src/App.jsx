@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Hero from "./components/sections/Hero";
@@ -18,12 +23,32 @@ import ProjectDetails from "./pages/ProjectDetails";
 import Team from "./pages/Team";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
+import Dashboard from "./pages/Dashboard";
+import Opportunities from "./pages/Opportunities";
+import Wallet from "./pages/Wallet";
+import IssuerPortal from "./pages/IssuerPortal";
+import KYCFlow from "./pages/KYCFlow";
+import KYCProtectedRoute from "./components/KYCProtectedRoute";
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+
+  // Define dashboard routes where Header should not be shown
+  const dashboardRoutes = [
+    "/dashboard",
+    "/opportunities",
+    "/wallet",
+    "/issuer",
+    "/kyc",
+  ];
+  const isDashboardPage = dashboardRoutes.some((route) =>
+    location.pathname.startsWith(route)
+  );
+
   return (
-    <Router>
+    <>
       <ScrollToTop />
-      <Header />
+      {!isDashboardPage && <Header />}
       <Routes>
         <Route
           path="/"
@@ -47,8 +72,49 @@ function App() {
         <Route path="/team" element={<Team />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/kyc" element={<KYCFlow />} />
+        <Route
+          path="/dashboard"
+          element={
+            <KYCProtectedRoute>
+              <Dashboard />
+            </KYCProtectedRoute>
+          }
+        />
+        <Route
+          path="/opportunities"
+          element={
+            <KYCProtectedRoute>
+              <Opportunities />
+            </KYCProtectedRoute>
+          }
+        />
+        <Route
+          path="/wallet"
+          element={
+            <KYCProtectedRoute>
+              <Wallet />
+            </KYCProtectedRoute>
+          }
+        />
+        <Route
+          path="/issuer"
+          element={
+            <KYCProtectedRoute>
+              <IssuerPortal />
+            </KYCProtectedRoute>
+          }
+        />
       </Routes>
-      <Footer />
+      {!isDashboardPage && <Footer />}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }

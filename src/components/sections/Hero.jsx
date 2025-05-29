@@ -7,10 +7,6 @@ import JoinUsCTA from "./JoinUsCTA";
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Common description for both token types to ensure identical height
-  const tokenDescription =
-    "Fractional ownership of premium real-world assets making quality investments accessible to everyone while creating positive impact.";
-
   return (
     <>
       {/* Main Hero Section */}
@@ -32,15 +28,16 @@ const Hero = () => {
                 real world assets like Green energy, Gold, Agriculture, Carbon
                 credits and more with as low as 1000RM.
               </p>
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-gold text-background px-8 py-4 rounded-lg text-lg font-medium hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-gold/20 group relative overflow-hidden"
+              <Link
+                to="/kyc"
+                className="inline-block bg-gold text-background px-8 py-4 rounded-lg text-lg font-medium hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-gold/20 group relative overflow-hidden"
               >
                 <span className="relative z-10">Invest Now</span>
                 <div className="absolute inset-0 bg-white/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
-              </button>
+              </Link>
               <p className="mt-4 text-text-secondary text-sm italic">
-                Investments are subject to market risks. Please read the offer document carefully before investing.
+                Investments are subject to market risks. Please read the offer
+                document carefully before investing.
               </p>
             </div>
 
@@ -61,16 +58,18 @@ const Hero = () => {
       <section className="py-20 bg-gradient-to-b from-background to-black/95">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-black/40 backdrop-blur-sm p-10 rounded-3xl border border-gold/20 hover:border-gold/30 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5 h-full">
-              <h3 className="text-2xl font-bold text-gold mb-6">
-                Investment Tokens
-              </h3>
-              <p className="text-text-secondary text-lg leading-relaxed">
-                Own fractions of premium real-world assets like green energy and
-                gold. Our investment tokens make high-quality investments
-                accessible to all with potential returns and asset growth.
-              </p>
-            </div>
+            <Link to="/opportunities" className="block h-full">
+              <div className="bg-black/40 backdrop-blur-sm p-10 rounded-3xl border border-gold/20 hover:border-gold/30 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5 h-full cursor-pointer">
+                <h3 className="text-2xl font-bold text-gold mb-6">
+                  Investment Tokens
+                </h3>
+                <p className="text-text-secondary text-lg leading-relaxed">
+                  Own fractions of premium real-world assets like green energy
+                  and gold. Our investment tokens make high-quality investments
+                  accessible to all with potential returns and asset growth.
+                </p>
+              </div>
+            </Link>
             <div className="bg-black/40 backdrop-blur-sm p-10 rounded-3xl border border-gold/20 hover:border-gold/30 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5 h-full">
               <h3 className="text-2xl font-bold text-gold mb-6">
                 Social Impact Tokens

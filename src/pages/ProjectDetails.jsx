@@ -585,13 +585,7 @@ const ProjectDetails = () => {
                 {/* CTA Button */}
                 <div>
                   <button
-                    onClick={() =>
-                      navigate("/investor-form", {
-                        state: {
-                          projectDetails: `${project.title} - ${project.location}`,
-                        },
-                      })
-                    }
+                    onClick={() => navigate("/kyc")}
                     className="w-full bg-gold text-background px-8 py-4 rounded-lg text-lg font-medium hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-gold/20 group relative overflow-hidden"
                   >
                     <span className="relative z-10">Invest Now</span>

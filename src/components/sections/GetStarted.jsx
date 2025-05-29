@@ -42,7 +42,7 @@ const GetStarted = () => {
       description:
         "Seize the opportunity to invest in our curated list of real-world assets. Own, earn, and grow your wealth today!",
       buttonText: "Invest Now",
-      path: "/investor",
+      path: "/kyc",
     },
   ];
 
