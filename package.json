@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@supabase/supabase-js": "^2.49.8",
     "autoprefixer": "^10.4.20",
     "chart.js": "^4.4.9",
     "cra-template": "1.2.0",
@@ -18,9 +19,15 @@
     "tailwindcss": "^3.4.17"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "test:unit": "craco test --testPathIgnorePatterns=integration.test.js --watchAll=false",
+    "test:integration": "SUPABASE_TEST_MODE=true craco test --testNamePattern=\"Integration\" --watchAll=false",
+    "test:all": "craco test --watchAll=false",
+    "test:coverage": "craco test --coverage --watchAll=false",
+    "test:watch": "craco test",
+    "test:runner": "node test-runner.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -40,5 +47,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@craco/craco": "^7.1.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "jest-environment-jsdom": "^30.0.0-beta.3"
   }
 }

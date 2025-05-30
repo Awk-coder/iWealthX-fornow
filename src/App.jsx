@@ -28,6 +28,7 @@ import Opportunities from "./pages/Opportunities";
 import Wallet from "./pages/Wallet";
 import IssuerPortal from "./pages/IssuerPortal";
 import KYCFlow from "./pages/KYCFlow";
+import KYCSuccess from "./pages/KYCSuccess";
 import KYCProtectedRoute from "./components/KYCProtectedRoute";
 
 function AppContent() {
@@ -73,6 +74,7 @@ function AppContent() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/kyc" element={<KYCFlow />} />
+        <Route path="/kyc-success" element={<KYCSuccess />} />
         <Route
           path="/dashboard"
           element={

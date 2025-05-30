@@ -1,74 +1,298 @@
-import React from "react";
-import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
-
-const ContactCard = ({ icon, title, details }) => {
-  return (
-    <div className="bg-black/30 border border-gold/30 rounded-3xl p-8 transition-all duration-300 hover:shadow-lg hover:shadow-gold/10 hover:border-gold/50">
-      <div className="text-gold text-3xl mb-4">{icon}</div>
-      <h3 className="text-text-primary text-xl font-bold mb-2">{title}</h3>
-      <p className="text-text-secondary">{details}</p>
-    </div>
-  );
-};
+import React, { useState } from "react";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Send,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
+import { websiteService } from "../lib/supabase";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
+  const [submitMessage, setSubmitMessage] = useState("");
+
+  const handleInputChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    setSubmitMessage("");
+
+    try {
+      await websiteService.submitContactForm(formData);
+      setSubmitStatus("success");
+      setSubmitMessage(
+        "Thank you for your message! We'll get back to you within 24 hours."
+      );
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      console.error("Contact form submission error:", error);
+      setSubmitStatus("error");
+      setSubmitMessage(
+        "Failed to send message. Please try again or contact us directly."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <div className="bg-background min-h-screen">
-      {/* Hero Section */}
-      <section className="pt-48 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto mb-20">
-            <h2 className="text-gold text-xl font-medium tracking-wider uppercase mb-4">
-              Get in Touch
+    <div className="min-h-screen bg-background pt-20">
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-text-primary mb-4">
+            Get in Touch
+          </h1>
+          <p className="text-xl text-text-secondary max-w-2xl mx-auto">
+            Have questions about Shariah-compliant investing or need support?
+            We're here to help you on your investment journey.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Contact Information */}
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-2xl font-bold text-text-primary mb-6">
+                Contact Information
+              </h2>
+
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="bg-gold/20 p-3 rounded-lg">
+                    <Mail className="w-6 h-6 text-gold" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-text-primary mb-1">
+                      Email
+                    </h3>
+                    <p className="text-text-secondary">saifkhan@iwealthx.com</p>
+                    <p className="text-text-secondary text-sm">
+                      We typically respond within 24 hours
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="bg-gold/20 p-3 rounded-lg">
+                    <Phone className="w-6 h-6 text-gold" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-text-primary mb-1">
+                      Phone
+                    </h3>
+                    <p className="text-text-secondary">+60 12-904-2153</p>
+                    <p className="text-text-secondary text-sm">
+                      Monday to Friday, 9 AM - 6 PM (MYT)
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="bg-gold/20 p-3 rounded-lg">
+                    <MapPin className="w-6 h-6 text-gold" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-text-primary mb-1">
+                      Location
+                    </h3>
+                    <p className="text-text-secondary">
+                      Kuala Lumpur, Malaysia
+                    </p>
+                    <p className="text-text-secondary text-sm">
+                      Serving investors globally
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Office Hours */}
+            <div className="bg-surface border border-gray-700/50 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-text-primary mb-4">
+                Office Hours
+              </h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-text-secondary">Monday - Friday</span>
+                  <span className="text-text-primary">9:00 AM - 6:00 PM</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-text-secondary">Saturday</span>
+                  <span className="text-text-primary">10:00 AM - 2:00 PM</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-text-secondary">Sunday</span>
+                  <span className="text-text-primary">Closed</span>
+                </div>
+              </div>
+              <p className="text-text-secondary text-xs mt-4">
+                * All times are in Malaysia Time (MYT)
+              </p>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div>
+            <h2 className="text-2xl font-bold text-text-primary mb-6">
+              Send us a Message
             </h2>
-            <h1 className="text-text-primary text-5xl lg:text-6xl font-bold mb-8">
-              Contact Us
-            </h1>
-            <p className="text-text-secondary text-xl leading-relaxed">
-              Have questions about iWealthX? We're here to help! Reach out to us using any of the contact methods below.
-            </p>
-          </div>
 
-          {/* Contact Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <ContactCard
-              icon={<FaEnvelope />}
-              title="Email"
-              details="saifkhan@iwealthx.com"
-            />
-            <ContactCard
-              icon={<FaPhone />}
-              title="Phone"
-              details="+60 12-352 4656"
-            />
-            <ContactCard
-              icon={<FaMapMarkerAlt />}
-              title="Location"
-              details="Kuala Lumpur, Malaysia"
-            />
+            {submitStatus && (
+              <div
+                className={`mb-6 p-4 rounded-lg border ${
+                  submitStatus === "success"
+                    ? "bg-accent-green/10 border-accent-green/20"
+                    : "bg-red-500/10 border-red-500/20"
+                }`}
+              >
+                <div className="flex items-center space-x-3">
+                  {submitStatus === "success" ? (
+                    <CheckCircle className="w-5 h-5 text-accent-green" />
+                  ) : (
+                    <AlertCircle className="w-5 h-5 text-red-500" />
+                  )}
+                  <p
+                    className={`text-sm ${
+                      submitStatus === "success"
+                        ? "text-accent-green"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {submitMessage}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange("name", e.target.value)}
+                    required
+                    className="w-full px-4 py-3 bg-background border border-gray-700/50 rounded-lg text-text-primary focus:outline-none focus:border-gold/50"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-text-secondary mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    required
+                    className="w-full px-4 py-3 bg-background border border-gray-700/50 rounded-lg text-text-primary focus:outline-none focus:border-gold/50"
+                    placeholder="Enter your email"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">
+                  Subject *
+                </label>
+                <select
+                  value={formData.subject}
+                  onChange={(e) => handleInputChange("subject", e.target.value)}
+                  required
+                  className="w-full px-4 py-3 bg-background border border-gray-700/50 rounded-lg text-text-primary focus:outline-none focus:border-gold/50"
+                >
+                  <option value="">Select a subject</option>
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Investment Questions">
+                    Investment Questions
+                  </option>
+                  <option value="KYC Support">KYC Support</option>
+                  <option value="Technical Support">Technical Support</option>
+                  <option value="Partnership Opportunities">
+                    Partnership Opportunities
+                  </option>
+                  <option value="Media Inquiry">Media Inquiry</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">
+                  Message *
+                </label>
+                <textarea
+                  value={formData.message}
+                  onChange={(e) => handleInputChange("message", e.target.value)}
+                  required
+                  rows={6}
+                  className="w-full px-4 py-3 bg-background border border-gray-700/50 rounded-lg text-text-primary focus:outline-none focus:border-gold/50"
+                  placeholder="Tell us how we can help you..."
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-gold text-background px-6 py-3 rounded-lg font-medium hover:bg-gold/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+              >
+                {isSubmitting ? (
+                  <>
+                    <div className="animate-spin w-4 h-4 border-2 border-background border-t-transparent rounded-full mr-2"></div>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4 mr-2" />
+                    Send Message
+                  </>
+                )}
+              </button>
+            </form>
           </div>
         </div>
-      </section>
 
-      {/* Map Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative rounded-3xl overflow-hidden border border-gold/30 h-[400px]">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127482.6891426587!2d101.61694180238526!3d3.138503939975948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc49c701efeae7%3A0xf4d98e5b2f1c287d!2sKuala%20Lumpur%2C%20Federal%20Territory%20of%20Kuala%20Lumpur%2C%20Malaysia!5e0!3m2!1sen!2sus!4v1697505342338!5m2!1sen!2sus"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="iWealthX Location"
-            ></iframe>
+        {/* Map Section */}
+        <div className="mt-16">
+          <h2 className="text-2xl font-bold text-text-primary mb-6 text-center">
+            Our Location
+          </h2>
+          <div className="bg-surface border border-gray-700/50 rounded-lg p-6">
+            <div className="aspect-video bg-gray-800 rounded-lg flex items-center justify-center">
+              <div className="text-center">
+                <MapPin className="w-12 h-12 text-gold mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-text-primary mb-2">
+                  Kuala Lumpur, Malaysia
+                </h3>
+                <p className="text-text-secondary">
+                  Serving Shariah-compliant investors globally
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
 
-export default Contact; 
+export default Contact;
