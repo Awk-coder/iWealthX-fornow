@@ -156,7 +156,7 @@ const KYCFlow = () => {
 
         {/* Progress Steps */}
         <div className="mb-12">
-          <div className="relative flex items-center justify-between">
+          <div className="flex items-center justify-between">
             {steps.map((step, index) => {
               const StepIcon = step.icon;
               const isActive = currentStep === step.id;
@@ -165,23 +165,11 @@ const KYCFlow = () => {
               return (
                 <div
                   key={step.id}
-                  className="flex flex-col items-center flex-1 relative"
+                  className="flex flex-col items-center flex-1"
                 >
-                  {/* Connecting line - only show if not the last step */}
-                  {index < steps.length - 1 && (
-                    <div className="absolute top-6 left-1/2 w-full h-0.5 z-0">
-                      <div
-                        className={`h-full transition-all duration-500 ${
-                          isCompleted ? "bg-accent-green" : "bg-gray-700"
-                        }`}
-                        style={{ width: "calc(100% - 3rem)" }}
-                      />
-                    </div>
-                  )}
-
                   <div
                     className={`
-                    w-12 h-12 rounded-full flex items-center justify-center mb-2 transition-all relative z-10
+                    w-12 h-12 rounded-full flex items-center justify-center mb-2 transition-all
                     ${
                       isCompleted
                         ? "bg-accent-green text-white"
@@ -213,6 +201,13 @@ const KYCFlow = () => {
                       {step.description}
                     </p>
                   </div>
+                  {index < steps.length - 1 && (
+                    <div
+                      className={`hidden md:block absolute h-0.5 w-24 mt-6 ml-24 ${
+                        isCompleted ? "bg-accent-green" : "bg-gray-700"
+                      }`}
+                    />
+                  )}
                 </div>
               );
             })}
