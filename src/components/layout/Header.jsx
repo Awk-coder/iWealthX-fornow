@@ -66,7 +66,7 @@ const Header = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
-            <img src={logo} alt="iWealthX Logo" className="h-16" />
+            <img src={logo} alt="iWealthX Logo" className="h-18" />
           </Link>
 
           {/* Desktop Navigation */}
