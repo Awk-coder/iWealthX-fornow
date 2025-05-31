@@ -1,11 +1,22 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = "https://lrmsfhjpnschinvxhiya.supabase.co";
-const supabaseAnonKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxybXNmaGpwbnNjaGludnhoaXlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg1Nzg0NTIsImV4cCI6MjA2NDE1NDQ1Mn0.vUhpdtSd3HdHTLqvo3494ZuyXSDN8sl80_47Wo_tzp4";
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
 
-// Create Supabase client with realtime disabled to avoid WebSocket issues
+// Validate environment variables
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error(
+    "Missing Supabase environment variables. Please check your .env file."
+  );
+}
+
+// Create Supabase client with comprehensive configuration to avoid WebSocket issues
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+  },
   realtime: {
     disabled: true,
   },
@@ -13,6 +24,9 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     headers: {
       "X-Client-Info": "iwealthx-web",
     },
+  },
+  db: {
+    schema: "public",
   },
 });
 
