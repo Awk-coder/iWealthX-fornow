@@ -14,9 +14,11 @@ import {
   Calendar,
   Target,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const IssuerPortal = () => {
   const [showAddProject, setShowAddProject] = useState(false);
+  const navigate = useNavigate();
 
   const issuerStats = {
     totalRaised: 2500000,
@@ -111,6 +113,15 @@ const IssuerPortal = () => {
       default:
         return <Bell className="w-4 h-4 text-gray-400" />;
     }
+  };
+
+  const handleCreateProject = () => {
+    navigate("/create-project");
+  };
+
+  const handleUploadDocuments = () => {
+    // If no project is selected, we'll show all projects in the upload page
+    navigate("/upload-documents");
   };
 
   return (
@@ -250,13 +261,16 @@ const IssuerPortal = () => {
             </h3>
             <div className="space-y-3">
               <button
-                onClick={() => setShowAddProject(true)}
+                onClick={handleCreateProject}
                 className="w-full bg-gold text-background py-3 px-4 rounded-lg font-medium hover:bg-gold/90 transition-colors flex items-center justify-center space-x-2"
               >
                 <Plus className="w-4 h-4" />
                 <span>Create Project</span>
               </button>
-              <button className="w-full bg-gray-700 text-text-primary py-3 px-4 rounded-lg font-medium hover:bg-gray-600 transition-colors flex items-center justify-center space-x-2">
+              <button
+                onClick={handleUploadDocuments}
+                className="w-full bg-gray-700 text-text-primary py-3 px-4 rounded-lg font-medium hover:bg-gray-600 transition-colors flex items-center justify-center space-x-2"
+              >
                 <Upload className="w-4 h-4" />
                 <span>Upload Documents</span>
               </button>

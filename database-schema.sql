@@ -59,11 +59,21 @@ ALTER TABLE contact_submissions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE newsletter_subscriptions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE investment_interests ENABLE ROW LEVEL SECURITY;
 
--- Create policies for public access (you may want to restrict these later)
-CREATE POLICY "Allow public insert on kyc_applications" ON kyc_applications FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow public insert on contact_submissions" ON contact_submissions FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow public insert on newsletter_subscriptions" ON newsletter_subscriptions FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow public insert on investment_interests" ON investment_interests FOR INSERT WITH CHECK (true);
+-- Drop existing policies if any
+DROP POLICY IF EXISTS "Allow public insert on contact_submissions" ON contact_submissions;
+
+-- Create new policies for contact_submissions
+CREATE POLICY "Allow public insert on contact_submissions" 
+ON contact_submissions 
+FOR INSERT 
+TO public
+WITH CHECK (true);
+
+CREATE POLICY "Allow public select on contact_submissions" 
+ON contact_submissions 
+FOR SELECT 
+TO public
+USING (true);
 
 -- Create storage bucket for KYC documents
 INSERT INTO storage.buckets (id, name, public) VALUES ('kyc-documents', 'kyc-documents', false);

@@ -31,47 +31,16 @@ module.exports = {
         ws: false,
       };
 
-      // Add module rules to handle problematic packages
-      webpackConfig.module.rules.push({
-        test: /\.js$/,
-        include: /node_modules\/@supabase\/realtime-js/,
-        use: {
-          loader: "null-loader",
-        },
-      });
-
-      // Ignore specific problematic files
-      webpackConfig.resolve.alias = {
-        ...webpackConfig.resolve.alias,
-        "@supabase/realtime-js": false,
-        ws: false,
-      };
-
-      // Add plugins to define process.env and Buffer
+      // Simple plugins for global handling
       webpackConfig.plugins = [
         ...webpackConfig.plugins,
         new webpack.DefinePlugin({
-          "process.env": JSON.stringify(process.env),
           global: "globalThis",
         }),
-        new webpack.IgnorePlugin({
-          resourceRegExp: /^ws$/,
-        }),
-        new webpack.IgnorePlugin({
-          resourceRegExp: /@supabase\/realtime-js/,
+        new webpack.ProvidePlugin({
+          global: "globalThis",
         }),
       ];
-
-      // Disable source map loader for problematic packages
-      webpackConfig.module.rules.forEach((rule) => {
-        if (rule.loader && rule.loader.includes("source-map-loader")) {
-          rule.exclude = [
-            ...(rule.exclude || []),
-            /node_modules\/@supabase\/realtime-js/,
-            /node_modules\/ws/,
-          ];
-        }
-      });
 
       return webpackConfig;
     },

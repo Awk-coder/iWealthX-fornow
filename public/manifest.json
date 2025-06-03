@@ -3,17 +3,17 @@
   "name": "iWealthX | Real World Asset Tokenization Platform",
   "icons": [
     {
-      "src": "logo-noname.ico",
+      "src": "logo/logo-noname.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo-noname.png",
+      "src": "logo/logo-noname.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo-noname.png",
+      "src": "logo/logo-noname.png",
       "type": "image/png",
       "sizes": "512x512"
     }

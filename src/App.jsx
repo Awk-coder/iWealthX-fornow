@@ -30,6 +30,8 @@ import IssuerPortal from "./pages/IssuerPortal";
 import KYCFlow from "./pages/KYCFlow";
 import KYCSuccess from "./pages/KYCSuccess";
 import KYCProtectedRoute from "./components/KYCProtectedRoute";
+import CreateProject from "./pages/CreateProject";
+import UploadDocuments from "./pages/UploadDocuments";
 
 function AppContent() {
   const location = useLocation();
@@ -106,6 +108,11 @@ function AppContent() {
               <IssuerPortal />
             </KYCProtectedRoute>
           }
+        />
+        <Route path="/create-project" element={<CreateProject />} />
+        <Route
+          path="/upload-documents/:projectId"
+          element={<UploadDocuments />}
         />
       </Routes>
       {!isDashboardPage && <Footer />}
