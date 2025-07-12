@@ -1,20 +1,15 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import Contact from "../pages/Contact";
-import { websiteService } from "../lib/supabase";
 
-// Mock the Supabase service
-jest.mock("../lib/supabase", () => ({
-  websiteService: {
-    submitContactForm: jest.fn(),
-  },
-}));
+// Mock fetch
+global.fetch = jest.fn();
 
 describe("Contact Form Tests", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    fetch.mockClear();
   });
 
   test("should render contact form with all fields", () => {
@@ -41,8 +36,7 @@ describe("Contact Form Tests", () => {
 
     expect(screen.getByText("saifkhan@iwealthx.com")).toBeInTheDocument();
     expect(screen.getByText("+60 12-904-2153")).toBeInTheDocument();
-    const locationTexts = screen.getAllByText("Kuala Lumpur, Malaysia");
-    expect(locationTexts.length).toBeGreaterThan(0);
+    expect(screen.getByText("Kuala Lumpur, Malaysia")).toBeInTheDocument();
   });
 
   test("should display office hours", () => {
@@ -82,11 +76,42 @@ describe("Contact Form Tests", () => {
     expect(subjectSelect).toHaveValue("General Inquiry");
   });
 
+  test("should validate required fields", async () => {
+    const user = userEvent.setup();
+    render(<Contact />);
+
+    const submitButton = screen.getByRole("button", { name: /send message/i });
+    await user.click(submitButton);
+
+    await waitFor(() => {
+      expect(screen.getByText("Please enter your name")).toBeInTheDocument();
+    });
+  });
+
+  test("should validate email format", async () => {
+    const user = userEvent.setup();
+    render(<Contact />);
+
+    const nameInput = screen.getByPlaceholderText(/enter your full name/i);
+    const emailInput = screen.getByPlaceholderText(/enter your email/i);
+    const submitButton = screen.getByRole("button", { name: /send message/i });
+
+    await user.type(nameInput, "John Doe");
+    await user.type(emailInput, "invalid-email");
+    await user.click(submitButton);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Please enter a valid email address")
+      ).toBeInTheDocument();
+    });
+  });
+
   test("should submit form successfully", async () => {
     const user = userEvent.setup();
-    websiteService.submitContactForm.mockResolvedValue({
-      id: "test-uuid-123",
-      created_at: new Date().toISOString(),
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      status: 200,
     });
 
     render(<Contact />);
@@ -115,11 +140,18 @@ describe("Contact Form Tests", () => {
 
     // Wait for submission
     await waitFor(() => {
-      expect(websiteService.submitContactForm).toHaveBeenCalledWith({
-        name: "John Doe",
-        email: "john.doe@example.com",
-        subject: "General Inquiry",
-        message: "This is a test message",
+      expect(fetch).toHaveBeenCalledWith("https://formspree.io/f/mwppwdpj", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: "John Doe",
+          email: "john.doe@example.com",
+          subject: "General Inquiry",
+          message: "This is a test message",
+          _replyto: "john.doe@example.com",
+        }),
       });
     });
 
@@ -142,9 +174,7 @@ describe("Contact Form Tests", () => {
 
   test("should handle form submission errors", async () => {
     const user = userEvent.setup();
-    websiteService.submitContactForm.mockRejectedValue(
-      new Error("Submission failed")
-    );
+    fetch.mockRejectedValueOnce(new Error("Network error"));
 
     render(<Contact />);
 
@@ -179,11 +209,9 @@ describe("Contact Form Tests", () => {
   test("should show loading state during submission", async () => {
     const user = userEvent.setup();
     // Mock a delayed response
-    websiteService.submitContactForm.mockImplementation(
+    fetch.mockImplementationOnce(
       () =>
-        new Promise((resolve) =>
-          setTimeout(() => resolve({ id: "test" }), 1000)
-        )
+        new Promise((resolve) => setTimeout(() => resolve({ ok: true }), 1000))
     );
 
     render(<Contact />);
@@ -213,29 +241,5 @@ describe("Contact Form Tests", () => {
     // Should show loading state
     expect(screen.getByText(/sending/i)).toBeInTheDocument();
     expect(submitButton).toBeDisabled();
-  });
-
-  test("should validate required fields", async () => {
-    const user = userEvent.setup();
-    render(<Contact />);
-
-    // Try to submit without filling required fields
-    const submitButton = screen.getByRole("button", { name: /send message/i });
-    await user.click(submitButton);
-
-    // HTML5 validation should prevent submission
-    const nameInput = screen.getByPlaceholderText(/enter your full name/i);
-    expect(nameInput).toBeInvalid();
-  });
-
-  test("should validate email format", async () => {
-    const user = userEvent.setup();
-    render(<Contact />);
-
-    const emailInput = screen.getByPlaceholderText(/enter your email/i);
-    await user.type(emailInput, "invalid-email");
-
-    // HTML5 validation should catch this
-    expect(emailInput).toBeInvalid();
   });
 });

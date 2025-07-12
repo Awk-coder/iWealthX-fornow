@@ -7,7 +7,6 @@ import {
   CheckCircle,
   AlertCircle,
 } from "lucide-react";
-import { websiteService } from "../lib/supabase";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -17,34 +16,90 @@ const Contact = () => {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
+  const [submitStatus, setSubmitStatus] = useState(null);
   const [submitMessage, setSubmitMessage] = useState("");
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [field]: value,
+      [name]: value,
     }));
+  };
+
+  const validateForm = () => {
+    if (!formData.name.trim()) {
+      setSubmitStatus("error");
+      setSubmitMessage("Please enter your name");
+      return false;
+    }
+    if (!formData.email.trim()) {
+      setSubmitStatus("error");
+      setSubmitMessage("Please enter your email");
+      return false;
+    }
+    if (!formData.email.includes("@")) {
+      setSubmitStatus("error");
+      setSubmitMessage("Please enter a valid email address");
+      return false;
+    }
+    if (!formData.subject) {
+      setSubmitStatus("error");
+      setSubmitMessage("Please select a subject");
+      return false;
+    }
+    if (!formData.message.trim()) {
+      setSubmitStatus("error");
+      setSubmitMessage("Please enter your message");
+      return false;
+    }
+    return true;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
+
+    // Reset status
     setSubmitStatus(null);
     setSubmitMessage("");
 
+    // Validate form
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
     try {
-      await websiteService.submitContactForm(formData);
-      setSubmitStatus("success");
-      setSubmitMessage(
-        "Thank you for your message! We'll get back to you within 24 hours."
-      );
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      // Simple fetch request to a form handler
+      const response = await fetch("https://formspree.io/f/mwppwdpj", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          _replyto: formData.email,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        setSubmitMessage(
+          "Thank you for your message! We'll get back to you within 24 hours."
+        );
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        throw new Error("Form submission failed");
+      }
     } catch (error) {
       console.error("Contact form submission error:", error);
       setSubmitStatus("error");
       setSubmitMessage(
-        "Failed to send message. Please try again or contact us directly."
+        "Failed to send message. Please try again or contact us directly at saifkhan@iwealthx.com"
       );
     } finally {
       setIsSubmitting(false);
@@ -157,20 +212,20 @@ const Contact = () => {
               <div
                 className={`mb-6 p-4 rounded-lg border ${
                   submitStatus === "success"
-                    ? "bg-accent-green/10 border-accent-green/20"
+                    ? "bg-green-500/10 border-green-500/20"
                     : "bg-red-500/10 border-red-500/20"
                 }`}
               >
                 <div className="flex items-center space-x-3">
                   {submitStatus === "success" ? (
-                    <CheckCircle className="w-5 h-5 text-accent-green" />
+                    <CheckCircle className="w-5 h-5 text-green-500" />
                   ) : (
                     <AlertCircle className="w-5 h-5 text-red-500" />
                   )}
                   <p
                     className={`text-sm ${
                       submitStatus === "success"
-                        ? "text-accent-green"
+                        ? "text-green-500"
                         : "text-red-500"
                     }`}
                   >
@@ -188,8 +243,9 @@ const Contact = () => {
                   </label>
                   <input
                     type="text"
+                    name="name"
                     value={formData.name}
-                    onChange={(e) => handleInputChange("name", e.target.value)}
+                    onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 bg-background border border-gray-700/50 rounded-lg text-text-primary focus:outline-none focus:border-gold/50"
                     placeholder="Enter your full name"
@@ -202,8 +258,9 @@ const Contact = () => {
                   </label>
                   <input
                     type="email"
+                    name="email"
                     value={formData.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 bg-background border border-gray-700/50 rounded-lg text-text-primary focus:outline-none focus:border-gold/50"
                     placeholder="Enter your email"
@@ -216,8 +273,9 @@ const Contact = () => {
                   Subject *
                 </label>
                 <select
+                  name="subject"
                   value={formData.subject}
-                  onChange={(e) => handleInputChange("subject", e.target.value)}
+                  onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 bg-background border border-gray-700/50 rounded-lg text-text-primary focus:outline-none focus:border-gold/50"
                 >
@@ -241,8 +299,9 @@ const Contact = () => {
                   Message *
                 </label>
                 <textarea
+                  name="message"
                   value={formData.message}
-                  onChange={(e) => handleInputChange("message", e.target.value)}
+                  onChange={handleInputChange}
                   required
                   rows={6}
                   className="w-full px-4 py-3 bg-background border border-gray-700/50 rounded-lg text-text-primary focus:outline-none focus:border-gold/50"

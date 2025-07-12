@@ -164,7 +164,7 @@ const Team = () => {
     },
     {
       name: "Azmatullah Mohammad",
-      role: "Blockchain Lead",
+      role: "Project Manager",
       image: azmathImg,
       description:
         "Seasoned technology leader with 19 years at IBM and tech giants, specializing in blockchain implementation, project management, digital transformation solutions, and enterprise software development.",
