@@ -5,7 +5,21 @@ import { supabase } from "./supabase";
 
 class DidItService {
   constructor() {
+    // Prevent multiple instances (singleton pattern)
+    if (DidItService.instance) {
+      return DidItService.instance;
+    }
+
     this.sessionCache = new Map();
+    DidItService.instance = this;
+  }
+
+  // Static method to get singleton instance
+  static getInstance() {
+    if (!DidItService.instance) {
+      DidItService.instance = new DidItService();
+    }
+    return DidItService.instance;
   }
 
   async createVerificationSession(userInfo = {}) {
@@ -268,13 +282,19 @@ class DidItService {
   // Check if user has completed KYC (for route protection)
   async isKYCCompleted() {
     try {
-      // First check localStorage for demo mode
-      const demoCompleted = localStorage.getItem("kycCompleted") === "true";
-      if (demoCompleted) {
-        return true;
+      // For demo users only, check localStorage (development/testing purposes)
+      const demoUser = localStorage.getItem("demo_user");
+      const demoSession = localStorage.getItem("demo_session");
+
+      if (demoUser && demoSession === "true") {
+        const demoCompleted = localStorage.getItem("kycCompleted") === "true";
+        if (demoCompleted) {
+          console.log("Demo KYC completion detected");
+          return true;
+        }
       }
 
-      // Check database status
+      // Always check database status for real users (primary verification)
       const status = await this.getUserKYCStatus();
       return status.status === "verified";
     } catch (error) {
@@ -283,23 +303,47 @@ class DidItService {
     }
   }
 
-  // Simple completion marking
+  // Mark KYC completion (demo mode only)
   markKYCCompleted() {
-    localStorage.setItem("kycCompleted", "true");
-    console.log("KYC marked as completed");
+    // Only allow demo users to mark completion locally
+    const demoUser = localStorage.getItem("demo_user");
+    const demoSession = localStorage.getItem("demo_session");
+
+    if (demoUser && demoSession === "true") {
+      localStorage.setItem("kycCompleted", "true");
+      console.log("Demo KYC marked as completed");
+    } else {
+      console.log(
+        "KYC completion marking ignored - real verification required"
+      );
+    }
   }
 
-  // Clear KYC status
+  // Clear KYC status (demo mode only)
   clearKYCStatus() {
-    localStorage.removeItem("kycCompleted");
-    console.log("KYC status cleared");
+    const demoUser = localStorage.getItem("demo_user");
+    const demoSession = localStorage.getItem("demo_session");
+
+    if (demoUser && demoSession === "true") {
+      localStorage.removeItem("kycCompleted");
+      console.log("Demo KYC status cleared");
+    }
   }
 
-  // Get stored KYC result
+  // Get stored KYC result (demo mode only)
   getStoredKYCResult() {
-    const completed = localStorage.getItem("kycCompleted") === "true";
-    return completed ? { verified: true } : null;
+    const demoUser = localStorage.getItem("demo_user");
+    const demoSession = localStorage.getItem("demo_session");
+
+    if (demoUser && demoSession === "true") {
+      const completed = localStorage.getItem("kycCompleted") === "true";
+      return completed ? { verified: true } : null;
+    }
+
+    return null; // Force server-side verification for real users
   }
 }
 
-export default DidItService;
+// Export singleton instance
+const diditServiceInstance = DidItService.getInstance();
+export default diditServiceInstance;

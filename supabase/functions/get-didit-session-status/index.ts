@@ -57,12 +57,18 @@ serve(async (req) => {
     const diditSessionId = sessionData.didit_session_id;
     console.log("Found Didit session ID:", diditSessionId);
 
-    // Get Didit API credentials (using the same key as create-kyc-session)
-    const diditApiKey = "byfpU6XLydKEJRUT8KYQwVmJGh7Nl-x9H6mBnQz8aR0";
-    const diditWorkflowId = "b263e7e4-6a12-45e6-9065-a43631b4fc50";
+    // Get Didit API credentials from environment variables
+    const DIDIT_API_KEY = Deno.env.get("DIDIT_API_KEY");
+    const DIDIT_WORKFLOW_ID =
+      Deno.env.get("DIDIT_WORKFLOW_ID") ||
+      "b263e7e4-6a12-45e6-9065-a43631b4fc50";
+
+    if (!DIDIT_API_KEY) {
+      throw new Error("Didit API key not configured");
+    }
 
     console.log("Calling Didit API for session:", diditSessionId);
-    console.log("Using API key:", diditApiKey ? "SET" : "NOT SET");
+    console.log("Using API key:", DIDIT_API_KEY ? "SET" : "NOT SET");
 
     // Call Didit API to retrieve session status using the correct endpoint
     const diditResponse = await fetch(
@@ -70,7 +76,7 @@ serve(async (req) => {
       {
         method: "GET",
         headers: {
-          "X-API-Key": diditApiKey,
+          "X-API-Key": DIDIT_API_KEY,
           "Content-Type": "application/json",
         },
       }
@@ -151,7 +157,8 @@ serve(async (req) => {
       const { error: resultError } = await supabaseClient
         .from("didit_kyc_results")
         .upsert({
-          session_id: diditSessionId,
+          session_id: sessionId, // Use our internal session ID, not Didit's
+          user_id: user.id,
           verified: verificationData.verified,
           confidence: verificationData.confidence,
           verification_data: verificationData.verification_data,
@@ -176,7 +183,7 @@ serve(async (req) => {
               Date.now() + 365 * 24 * 60 * 60 * 1000
             ).toISOString(), // 1 year
             latest_session_id: sessionId,
-            latest_result_id: diditSessionId,
+            latest_result_id: sessionId, // Use consistent session ID reference
           });
 
         if (kycError) {

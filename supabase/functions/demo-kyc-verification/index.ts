@@ -312,12 +312,15 @@ serve(async (req) => {
                   
                   // Store completion in localStorage for demo purposes
                   if (window.opener) {
+                    // Get the allowed origin from the referrer or use default
+                    const allowedOrigin = document.referrer ? new URL(document.referrer).origin : window.location.origin;
+                    
                     window.opener.postMessage({
                       type: 'KYC_VERIFICATION_COMPLETE',
                       success: true,
                       verified: true,
                       sessionId: '${sessionParam}'
-                    }, '*');
+                    }, allowedOrigin);
                   }
                 } catch (error) {
                   console.log('Demo completion failed:', error);

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import DidItService from "../lib/diditService";
+import diditService from "../lib/diditService";
 
 const KYCProtectedRoute = ({ children }) => {
   const [kycStatus, setKycStatus] = useState("loading"); // 'loading', 'verified', 'unverified'
   const [isChecking, setIsChecking] = useState(true);
-  const diditService = new DidItService();
 
   useEffect(() => {
     const checkKYCStatus = async () => {

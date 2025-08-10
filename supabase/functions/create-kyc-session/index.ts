@@ -85,8 +85,11 @@ serve(async (req) => {
 
     // Didit API configuration (based on official documentation)
     const DIDIT_API_URL = "https://verification.didit.me";
-    const DIDIT_API_KEY = "byfpU6XLydKEJRUT8KYQwVmJGh7Nl-x9H6mBnQz8aR0"; // Your API key
-    const DIDIT_WORKFLOW_ID = "b263e7e4-6a12-45e6-9065-a43631b4fc50"; // Your workflow ID
+    const DIDIT_API_KEY = Deno.env.get("DIDIT_API_KEY");
+    const DIDIT_WORKFLOW_ID =
+      Deno.env.get("DIDIT_WORKFLOW_ID") ||
+      "b263e7e4-6a12-45e6-9065-a43631b4fc50";
+    const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
 
     console.log("Didit configuration:", {
       apiUrl: DIDIT_API_URL,
@@ -102,6 +105,11 @@ serve(async (req) => {
       throw new Error("Didit API key not configured");
     }
 
+    if (!SUPABASE_URL) {
+      console.error("Missing Supabase URL");
+      throw new Error("Supabase URL not configured");
+    }
+
     // Step 1: Create verification session directly with API key (no OAuth needed)
     let sessionData;
     let isRealDiditSession = false;
@@ -115,7 +123,7 @@ serve(async (req) => {
 
       const sessionBody = {
         workflow_id: DIDIT_WORKFLOW_ID,
-        callback: `https://lrmsfhjpnschinvxhiya.supabase.co/functions/v1/kyc-webhook-simple`,
+        callback: `${SUPABASE_URL}/functions/v1/kyc-webhook-simple`,
       };
 
       console.log(
@@ -173,9 +181,7 @@ serve(async (req) => {
         session_id: `demo_${Date.now()}_${Math.random()
           .toString(36)
           .substr(2, 9)}`,
-        url: `${Deno.env.get(
-          "SUPABASE_URL"
-        )}/functions/v1/demo-kyc-verification?session=${Date.now()}`,
+        url: `${SUPABASE_URL}/functions/v1/demo-kyc-verification?session=${Date.now()}`,
         status: "pending",
         expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
       };

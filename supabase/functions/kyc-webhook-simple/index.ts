@@ -7,6 +7,40 @@ const corsHeaders = {
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
+// Webhook signature validation utility
+async function validateWebhookSignature(
+  body: string,
+  signature: string,
+  secret: string
+): Promise<boolean> {
+  if (!signature || !secret) {
+    return false;
+  }
+
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    "raw",
+    encoder.encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+
+  const expectedSignature = await crypto.subtle.sign(
+    "HMAC",
+    key,
+    encoder.encode(body)
+  );
+  const expectedHex = Array.from(new Uint8Array(expectedSignature))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+
+  // Remove 'sha256=' prefix if present
+  const receivedSignature = signature.replace(/^sha256=/, "");
+
+  return expectedHex === receivedSignature;
+}
+
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -28,6 +62,9 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
+    // Get webhook secret for signature validation
+    const webhookSecret = Deno.env.get("DIDIT_WEBHOOK_SECRET");
+
     // Log the request for debugging
     console.log("Webhook request method:", req.method);
     console.log(
@@ -35,8 +72,45 @@ serve(async (req) => {
       Object.fromEntries(req.headers.entries())
     );
 
+    // Get the raw body for signature validation
+    const rawBody = await req.text();
+
+    // Validate webhook signature if secret is configured
+    if (webhookSecret) {
+      const signature =
+        req.headers.get("x-didit-signature") || req.headers.get("x-signature");
+
+      if (!signature) {
+        console.error("Missing webhook signature");
+        return new Response(JSON.stringify({ error: "Missing signature" }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          status: 401,
+        });
+      }
+
+      const isValidSignature = await validateWebhookSignature(
+        rawBody,
+        signature,
+        webhookSecret
+      );
+
+      if (!isValidSignature) {
+        console.error("Invalid webhook signature");
+        return new Response(JSON.stringify({ error: "Invalid signature" }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          status: 401,
+        });
+      }
+
+      console.log("Webhook signature validated successfully");
+    } else {
+      console.warn(
+        "Webhook secret not configured - signature validation skipped"
+      );
+    }
+
     // Parse webhook payload
-    const webhookPayload = await req.json();
+    const webhookPayload = JSON.parse(rawBody);
     console.log(
       "Received Didit webhook:",
       JSON.stringify(webhookPayload, null, 2)
@@ -106,7 +180,7 @@ serve(async (req) => {
     const { data: result, error: resultError } = await supabaseClient
       .from("didit_kyc_results")
       .insert({
-        session_id: session.id,
+        session_id: session.id, // Use our internal session ID for consistency
         user_id: session.user_id,
         verified: isVerified,
         confidence: verificationConfidence,
@@ -148,7 +222,7 @@ serve(async (req) => {
         kyc_status: kycStatus,
         verification_provider: "didit",
         latest_session_id: session.id,
-        latest_result_id: result.id,
+        latest_result_id: result.id, // Use the actual result ID from the insert
         verified_at: kycStatus === "verified" ? new Date().toISOString() : null,
         expires_at:
           kycStatus === "verified"
