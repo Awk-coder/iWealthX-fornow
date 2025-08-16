@@ -20,26 +20,61 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
-    // Get user from JWT token
-    const authHeader = req.headers.get("Authorization")!;
-    const token = authHeader.replace("Bearer ", "");
-    const {
-      data: { user },
-      error: authError,
-    } = await supabaseClient.auth.getUser(token);
+    // Get user from JWT token or demo session
+    const authHeader = req.headers.get("Authorization");
+    let user = null;
+    let isDemoUser = false;
 
-    if (authError || !user) {
-      throw new Error("Unauthorized");
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      try {
+        const token = authHeader.replace("Bearer ", "");
+        const {
+          data: { user: authUser },
+          error: authError,
+        } = await supabaseClient.auth.getUser(token);
+
+        if (!authError && authUser) {
+          user = authUser;
+        }
+      } catch (error) {
+        console.log("Auth error, checking for demo session:", error.message);
+      }
+    }
+
+    // Parse request body once
+    let requestBody = {};
+    try {
+      requestBody = await req.json();
+    } catch (error) {
+      console.log("Error parsing request body:", error.message);
+    }
+
+    // If no authenticated user, check for demo session
+    if (!user) {
+      if (requestBody.demoSession === true) {
+        isDemoUser = true;
+        user = {
+          id: "demo_user",
+          email: "demo@example.com",
+        };
+        console.log("Using demo user for session status check");
+      }
+    }
+
+    if (!user) {
+      throw new Error("Unauthorized - No valid user session");
     }
 
     // Get session ID from request body
-    const { sessionId } = await req.json();
+    const { sessionId } = requestBody;
 
     if (!sessionId) {
       throw new Error("Session ID is required");
     }
 
     console.log("Looking up session in database:", sessionId);
+    console.log("User ID:", user.id);
+    console.log("Is demo user:", isDemoUser);
 
     // First, look up the actual Didit session ID from our database
     const { data: sessionData, error: sessionError } = await supabaseClient
@@ -51,6 +86,19 @@ serve(async (req) => {
 
     if (sessionError || !sessionData) {
       console.error("Session lookup error:", sessionError);
+      console.error("User ID used:", user.id);
+      console.error("Session ID used:", sessionId);
+
+      // Let's also try to see what sessions exist for this user
+      const { data: allSessions, error: allSessionsError } =
+        await supabaseClient
+          .from("didit_kyc_sessions")
+          .select("id, user_id, didit_session_id, status")
+          .eq("user_id", user.id);
+
+      console.log("All sessions for user:", allSessions);
+      console.log("All sessions error:", allSessionsError);
+
       throw new Error("Session not found");
     }
 
@@ -76,8 +124,9 @@ serve(async (req) => {
       {
         method: "GET",
         headers: {
-          "X-API-Key": DIDIT_API_KEY,
+          "x-api-key": DIDIT_API_KEY,
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
       }
     );

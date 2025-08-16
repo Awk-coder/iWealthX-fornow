@@ -90,6 +90,11 @@ serve(async (req) => {
       Deno.env.get("DIDIT_WORKFLOW_ID") ||
       "b263e7e4-6a12-45e6-9065-a43631b4fc50";
     const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+    // Edge Functions are served from the functions subdomain, not the project URL
+    // e.g. https://<ref>.functions.supabase.co/<function>
+    const FUNCTIONS_BASE_URL = SUPABASE_URL
+      ? SUPABASE_URL.replace(".supabase.co", ".functions.supabase.co")
+      : "";
 
     console.log("Didit configuration:", {
       apiUrl: DIDIT_API_URL,
@@ -98,6 +103,7 @@ serve(async (req) => {
       hasUser: !!user,
       isDemoUser,
       userId: user?.id,
+      functionsBaseUrl: FUNCTIONS_BASE_URL,
     });
 
     if (!DIDIT_API_KEY) {
@@ -123,7 +129,7 @@ serve(async (req) => {
 
       const sessionBody = {
         workflow_id: DIDIT_WORKFLOW_ID,
-        callback: `${SUPABASE_URL}/functions/v1/kyc-webhook-simple`,
+        callback: `${FUNCTIONS_BASE_URL}/kyc-webhook-public`,
       };
 
       console.log(
@@ -135,7 +141,8 @@ serve(async (req) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-API-Key": DIDIT_API_KEY,
+          "x-api-key": DIDIT_API_KEY,
+          Accept: "application/json",
         },
         body: JSON.stringify(sessionBody),
       });

@@ -71,8 +71,26 @@ serve(async (req) => {
     }
 
     if (!user) {
-      console.error("No valid user found");
-      throw new Error("Unauthorized - No valid user session");
+      console.log(
+        "No authenticated user or demo session. Returning unverified."
+      );
+      return new Response(
+        JSON.stringify({
+          success: true,
+          kycStatus: {
+            status: "unverified",
+            provider: null,
+            verifiedAt: null,
+            expiresAt: null,
+            latestSession: null,
+            latestResult: null,
+          },
+        }),
+        {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          status: 200,
+        }
+      );
     }
 
     // Get session ID from URL params if provided
@@ -118,25 +136,7 @@ serve(async (req) => {
       // Get overall user KYC status
       const { data: kycStatus, error: statusError } = await supabaseClient
         .from("user_kyc_status")
-        .select(
-          `
-          *,
-          didit_kyc_sessions!latest_session_id (
-            id,
-            didit_session_id,
-            status,
-            created_at,
-            expires_at
-          ),
-          didit_kyc_results!latest_result_id (
-            verified,
-            confidence,
-            verification_data,
-            documents_verified,
-            verified_at
-          )
-        `
-        )
+        .select("*")
         .eq("user_id", user.id)
         .single();
 
@@ -173,8 +173,8 @@ serve(async (req) => {
             provider: kycStatus.verification_provider,
             verifiedAt: kycStatus.verified_at,
             expiresAt: kycStatus.expires_at,
-            latestSession: kycStatus.didit_kyc_sessions,
-            latestResult: kycStatus.didit_kyc_results,
+            latestSession: null,
+            latestResult: null,
           },
         }),
         {

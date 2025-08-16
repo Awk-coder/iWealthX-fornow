@@ -6,4 +6,6 @@ export const config = {
     enabled: true,
     origin: "*",
   },
+  // Make this function completely public
+  public: true,
 };

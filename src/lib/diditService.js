@@ -133,10 +133,23 @@ class DidItService {
       if (sessionId) {
         console.log("Checking Didit API directly for session:", sessionId);
 
+        const isDemoSession =
+          typeof window !== "undefined" &&
+          localStorage.getItem("demo_session") === "true";
+
+        console.log("🔍 Polling Didit session status for:", sessionId);
+        console.log("🔍 Demo session:", isDemoSession);
+
         const { data: diditData, error: diditError } =
           await supabase.functions.invoke("get-didit-session-status", {
-            body: { sessionId },
+            body: {
+              sessionId,
+              demoSession: isDemoSession,
+            },
           });
+
+        console.log("🔍 Didit API response:", diditData);
+        console.log("🔍 Didit API error:", diditError);
 
         if (diditError) {
           console.error("Didit API error:", diditError);
@@ -156,10 +169,16 @@ class DidItService {
       }
 
       // For overall user status, use the existing function
+      const isDemoSession =
+        typeof window !== "undefined" &&
+        localStorage.getItem("demo_session") === "true";
+
       const { data, error } = await supabase.functions.invoke(
         "get-kyc-status",
         {
-          body: {},
+          body: {
+            demoSession: isDemoSession,
+          },
         }
       );
 
@@ -200,6 +219,8 @@ class DidItService {
 
   // Simple verification window - check actual completion status
   openVerificationWindow(verificationUrl, onComplete, sessionId = null) {
+    let checkCount = 0;
+    const maxChecks = 60; // Maximum 10 minutes (60 * 10 seconds)
     const popup = window.open(
       verificationUrl,
       "didit_verification",
@@ -216,6 +237,8 @@ class DidItService {
 
     // Check for actual completion, not just popup close
     const checkCompletion = async () => {
+      console.log("🔄 Polling attempt #", checkCount + 1);
+
       if (popup.closed) {
         console.log(
           "Verification popup closed - checking actual completion status"
@@ -242,6 +265,26 @@ class DidItService {
 
             // Redirect to dashboard
             window.location.href = "/dashboard";
+          } else if (status && status.status === "rejected") {
+            console.log("Verification was rejected/declined");
+
+            if (onComplete) {
+              onComplete({
+                success: false,
+                verified: false,
+                reason: "verification_rejected",
+              });
+            }
+          } else if (status && status.status === "failed") {
+            console.log("Verification failed");
+
+            if (onComplete) {
+              onComplete({
+                success: false,
+                verified: false,
+                reason: "verification_failed",
+              });
+            }
           } else {
             console.log(
               "Verification not completed - popup was closed without completion"
@@ -269,12 +312,24 @@ class DidItService {
         return;
       }
 
-      // Keep checking every 3 seconds
-      setTimeout(checkCompletion, 3000);
+      // Keep checking every 5 seconds for up to 10 minutes total
+      checkCount++;
+      if (checkCount >= maxChecks) {
+        console.log("Maximum check time reached (10 minutes)");
+        if (onComplete) {
+          onComplete({
+            success: false,
+            verified: false,
+            reason: "timeout",
+          });
+        }
+        return;
+      }
+      setTimeout(checkCompletion, 5000);
     };
 
-    // Start checking after 10 seconds to allow user to start verification
-    setTimeout(checkCompletion, 10000);
+    // Start checking after 30 seconds to allow user to complete verification
+    setTimeout(checkCompletion, 30000);
 
     return popup;
   }
@@ -294,7 +349,16 @@ class DidItService {
         }
       }
 
-      // Always check database status for real users (primary verification)
+      // Only check database status if an authenticated user exists
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        // Not authenticated and not demo → not completed
+        return false;
+      }
+
       const status = await this.getUserKYCStatus();
       return status.status === "verified";
     } catch (error) {

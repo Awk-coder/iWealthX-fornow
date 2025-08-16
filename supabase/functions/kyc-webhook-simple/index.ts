@@ -55,6 +55,16 @@ serve(async (req) => {
     });
   }
 
+  // Bypass Supabase auth check for webhooks
+  // This is a workaround for the 401 issue
+  const authHeader = req.headers.get("Authorization");
+  const apiKeyHeader = req.headers.get("apikey");
+
+  if (!authHeader && !apiKeyHeader) {
+    console.log("No auth headers - treating as webhook request");
+    // Continue processing as webhook
+  }
+
   try {
     // Create Supabase client with service role
     const supabaseClient = createClient(
@@ -74,6 +84,25 @@ serve(async (req) => {
 
     // Get the raw body for signature validation
     const rawBody = await req.text();
+
+    // Check if this is a test request (no signature)
+    const isTestRequest =
+      !req.headers.get("x-didit-signature") && !req.headers.get("x-signature");
+
+    if (isTestRequest) {
+      console.log("Test webhook request received");
+      return new Response(
+        JSON.stringify({
+          message: "Webhook endpoint is working! This is a test response.",
+          timestamp: new Date().toISOString(),
+          body: rawBody,
+        }),
+        {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          status: 200,
+        }
+      );
+    }
 
     // Validate webhook signature if secret is configured
     if (webhookSecret) {

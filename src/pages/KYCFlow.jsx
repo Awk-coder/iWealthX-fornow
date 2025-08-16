@@ -97,6 +97,17 @@ const KYCFlow = () => {
                 errorMessage =
                   "Verification was not completed. Please complete the verification process before closing the window.";
                 break;
+              case "verification_rejected":
+                errorMessage =
+                  "Your verification was declined. Please try again with different documents or contact support.";
+                break;
+              case "verification_failed":
+                errorMessage =
+                  "Verification failed due to technical issues. Please try again.";
+                break;
+              case "timeout":
+                errorMessage = "Verification timed out. Please try again.";
+                break;
               case "status_check_error":
                 errorMessage =
                   "Unable to verify completion status. Please try again.";
@@ -191,6 +202,13 @@ const KYCFlow = () => {
                     Reopen Verification Window
                   </button>
                 )}
+
+                <button
+                  onClick={() => window.location.reload()}
+                  className="w-full flex justify-center py-2 px-4 border border-red-300 rounded-md shadow-sm text-sm font-medium text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                >
+                  Refresh Page (if stuck)
+                </button>
               </div>
             ) : (
               <div className="space-y-6">

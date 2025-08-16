@@ -63,7 +63,6 @@ function AppContent() {
               <HowItWorks />
               <Testimonials />
               <GetStarted />
-              <Footer />
             </>
           }
         />
