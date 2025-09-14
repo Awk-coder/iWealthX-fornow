@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import TokenMinting from "../components/TokenMinting";
+import tokenApiService from "../lib/tokenApiService";
+import { supabase } from "../lib/supabase";
 
 const ProjectDetails = () => {
   const { category, id } = useParams();
   const navigate = useNavigate();
+  const [showTokenMinting, setShowTokenMinting] = useState(false);
+  const [projectTokenInfo, setProjectTokenInfo] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Project data store
   const projectsData = {
@@ -333,6 +339,37 @@ const ProjectDetails = () => {
   // Find the current project
   const project = projectsData[category]?.find((p) => p.id === id);
 
+  // Load project token information
+  useEffect(() => {
+    if (project) {
+      loadProjectTokenInfo();
+    }
+  }, [project]);
+
+  const loadProjectTokenInfo = async () => {
+    setIsLoading(true);
+    try {
+      // For now, we'll create a mock project ID based on the project data
+      // In a real implementation, you'd have actual project IDs from your database
+      const mockProjectId = `project-${category}-${id}`;
+
+      const result = await tokenApiService.getProjectTokenInfo(mockProjectId);
+      if (result.success) {
+        setProjectTokenInfo(result.data);
+      }
+    } catch (error) {
+      console.error("Failed to load project token info:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleMintSuccess = (mintData) => {
+    console.log("Tokens minted successfully:", mintData);
+    // You can add additional logic here, like showing a success message
+    // or redirecting to a success page
+  };
+
   // Only show healthcare network for Mujtaba Health Foundation project
   const showHealthcareNetwork = id === "mujtaba-health-charity";
 
@@ -582,19 +619,45 @@ const ProjectDetails = () => {
                   ))}
                 </div>
 
-                {/* CTA Button */}
-                <div>
+                {/* CTA Buttons */}
+                <div className="space-y-4">
                   <button
-                    onClick={() => navigate("/kyc")}
+                    onClick={() => setShowTokenMinting(!showTokenMinting)}
                     className="w-full bg-gold text-background px-8 py-4 rounded-lg text-lg font-medium hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-gold/20 group relative overflow-hidden"
                   >
-                    <span className="relative z-10">Invest Now</span>
+                    <span className="relative z-10">
+                      {showTokenMinting ? "Hide Token Minting" : "Mint Tokens"}
+                    </span>
                     <div className="absolute inset-0 bg-white/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                  </button>
+
+                  <button
+                    onClick={() => navigate("/kyc")}
+                    className="w-full bg-transparent border-2 border-gold text-gold px-8 py-4 rounded-lg text-lg font-medium hover:bg-gold hover:text-background transition-all group relative overflow-hidden"
+                  >
+                    <span className="relative z-10">Complete KYC First</span>
+                    <div className="absolute inset-0 bg-gold transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
                   </button>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Token Minting Section */}
+          {showTokenMinting && (
+            <div className="mt-16">
+              <h2 className="text-text-primary text-3xl font-bold mb-8">
+                Token Minting
+              </h2>
+              <div className="max-w-2xl">
+                <TokenMinting
+                  projectId={`project-${category}-${id}`}
+                  projectTitle={project.title}
+                  onMintSuccess={handleMintSuccess}
+                />
+              </div>
+            </div>
+          )}
 
           {/* Project Details Section */}
           <div className="mt-16">
