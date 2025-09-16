@@ -5,6 +5,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Hero from "./components/sections/Hero";
@@ -30,6 +31,9 @@ import IssuerPortal from "./pages/IssuerPortal";
 import KYCFlow from "./pages/KYCFlow";
 import KYCSuccess from "./pages/KYCSuccess";
 import KYCProtectedRoute from "./components/KYCProtectedRoute";
+import LoginForm from "./components/LoginForm";
+import SessionTimeoutWarning from "./components/SessionTimeoutWarning";
+import ConnectWallet from "./pages/ConnectWallet";
 import CreateProject from "./pages/CreateProject";
 import UploadDocuments from "./pages/UploadDocuments";
 
@@ -43,6 +47,8 @@ function AppContent() {
     "/wallet",
     "/issuer",
     "/kyc",
+    "/login",
+    "/register",
   ];
   const isDashboardPage = dashboardRoutes.some((route) =>
     location.pathname.startsWith(route)
@@ -51,6 +57,7 @@ function AppContent() {
   return (
     <>
       <ScrollToTop />
+      <SessionTimeoutWarning />
       {!isDashboardPage && <Header />}
       <Routes>
         <Route
@@ -75,6 +82,7 @@ function AppContent() {
         <Route path="/projects/:category/:id" element={<ProjectDetails />} />
         <Route path="/team" element={<Team />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<LoginForm />} />
         <Route path="/kyc" element={<KYCFlow />} />
         <Route path="/kyc-success" element={<KYCSuccess />} />
         <Route
@@ -109,6 +117,7 @@ function AppContent() {
             </KYCProtectedRoute>
           }
         />
+        <Route path="/connect-wallet" element={<ConnectWallet />} />
         <Route path="/create-project" element={<CreateProject />} />
         <Route
           path="/upload-documents/:projectId"
@@ -122,9 +131,11 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
   );
 }
 

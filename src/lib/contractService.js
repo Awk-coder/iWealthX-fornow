@@ -48,21 +48,70 @@ class ContractService {
   }
 
   // Initialize the service with user's wallet
-  async initialize() {
+  async initialize(forceReconnect = true) {
     try {
+      // Reset state first
+      this.provider = null;
+      this.signer = null;
+      this.contract = null;
+      this.isConnected = false;
       // Check if MetaMask is installed
       if (typeof window.ethereum === "undefined") {
-        throw new Error("MetaMask is not installed");
+        throw new Error(
+          "MetaMask is not installed. Please install MetaMask extension."
+        );
       }
 
-      // Request account access
-      await window.ethereum.request({ method: "eth_requestAccounts" });
+      // Check if ethereum object is properly loaded
+      if (!window.ethereum.request) {
+        throw new Error(
+          "MetaMask is not properly loaded. Please refresh the page."
+        );
+      }
+
+      // Always request fresh account access to trigger MetaMask popup
+      console.log("Requesting MetaMask connection...");
+
+      let accounts;
+      if (forceReconnect) {
+        // For forced reconnection, request permissions first to ensure popup
+        try {
+          await window.ethereum.request({
+            method: "wallet_requestPermissions",
+            params: [{ eth_accounts: {} }],
+          });
+        } catch (permError) {
+          console.log(
+            "Permission request failed, trying direct account request:",
+            permError.message
+          );
+        }
+      }
+
+      accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+
+      console.log("Accounts received:", accounts);
+
+      if (!accounts || accounts.length === 0) {
+        throw new Error("No accounts found. Please unlock MetaMask.");
+      }
 
       // Create provider and signer
       this.provider = new ethers.BrowserProvider(window.ethereum);
       this.signer = await this.provider.getSigner();
 
-      // Create contract instance
+      // Verify signer
+      const address = await this.signer.getAddress();
+      if (!address) {
+        throw new Error("Failed to get wallet address");
+      }
+
+      // Check if we're on the correct network first
+      await this.checkNetwork();
+
+      // Create contract instance after network check
       this.contract = new ethers.Contract(
         CONTRACT_CONFIG.contractAddress,
         IWX_TOKEN_ABI,
@@ -71,19 +120,17 @@ class ContractService {
 
       this.isConnected = true;
 
-      // Check if we're on the correct network
-      await this.checkNetwork();
-
       return {
         success: true,
-        address: await this.signer.getAddress(),
+        address: address,
         network: await this.provider.getNetwork(),
       };
     } catch (error) {
       console.error("Failed to initialize contract service:", error);
+      this.isConnected = false;
       return {
         success: false,
-        error: error.message,
+        error: error.message || "Failed to connect to wallet",
       };
     }
   }
@@ -92,18 +139,57 @@ class ContractService {
   async checkNetwork() {
     try {
       const network = await this.provider.getNetwork();
-      if (network.chainId !== BigInt(CONTRACT_CONFIG.network.chainId)) {
-        // Request to switch to Polygon Mumbai
-        await window.ethereum.request({
-          method: "wallet_switchEthereumChain",
-          params: [
-            { chainId: `0x${CONTRACT_CONFIG.network.chainId.toString(16)}` },
-          ],
-        });
+      const currentChainId = Number(network.chainId);
+      const targetChainId = CONTRACT_CONFIG.network.chainId;
+
+      if (currentChainId !== targetChainId) {
+        try {
+          // Request to switch to Polygon Amoy
+          await window.ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: `0x${targetChainId.toString(16)}` }],
+          });
+
+          // Wait a bit for the network to switch
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+
+          // Refresh the provider after network switch
+          this.provider = new ethers.BrowserProvider(window.ethereum);
+          this.signer = await this.provider.getSigner();
+          this.contract = new ethers.Contract(
+            CONTRACT_CONFIG.contractAddress,
+            IWX_TOKEN_ABI,
+            this.signer
+          );
+        } catch (switchError) {
+          // If switching fails, try to add the network
+          if (switchError.code === 4902) {
+            await window.ethereum.request({
+              method: "wallet_addEthereumChain",
+              params: [
+                {
+                  chainId: `0x${targetChainId.toString(16)}`,
+                  chainName: CONTRACT_CONFIG.network.name,
+                  rpcUrls: [CONTRACT_CONFIG.network.rpcUrl],
+                  blockExplorerUrls: [CONTRACT_CONFIG.network.blockExplorer],
+                  nativeCurrency: {
+                    name: "MATIC",
+                    symbol: "MATIC",
+                    decimals: 18,
+                  },
+                },
+              ],
+            });
+          } else {
+            throw switchError;
+          }
+        }
       }
     } catch (error) {
       console.error("Network check failed:", error);
-      throw new Error("Please switch to Polygon Amoy testnet");
+      throw new Error(
+        `Please switch to ${CONTRACT_CONFIG.network.name} testnet`
+      );
     }
   }
 
@@ -305,14 +391,38 @@ class ContractService {
         throw new Error("Contract not initialized");
       }
 
-      const [name, symbol, decimals, totalSupply, maxSupply] =
+      console.log(
+        "Calling contract at address:",
+        CONTRACT_CONFIG.contractAddress
+      );
+      console.log("Contract instance:", this.contract.target);
+
+      // Test if contract exists at this address
+      const code = await this.provider.getCode(CONTRACT_CONFIG.contractAddress);
+      if (code === "0x") {
+        throw new Error(
+          "No contract found at this address - it may not be deployed or you're on the wrong network"
+        );
+      }
+      console.log("Contract bytecode length:", code.length, "characters");
+
+      const [name, symbol, decimals, totalSupply, maxSupply, owner] =
         await Promise.all([
           this.contract.name(),
           this.contract.symbol(),
           this.contract.decimals(),
           this.contract.totalSupply(),
           this.contract.MAX_SUPPLY(),
+          this.contract.owner(),
         ]);
+
+      console.log("Raw blockchain responses:");
+      console.log("- name():", name);
+      console.log("- symbol():", symbol);
+      console.log("- decimals():", decimals.toString());
+      console.log("- totalSupply():", totalSupply.toString());
+      console.log("- MAX_SUPPLY():", maxSupply.toString());
+      console.log("- owner():", owner);
 
       return {
         success: true,
@@ -323,6 +433,7 @@ class ContractService {
           totalSupply: ethers.formatEther(totalSupply),
           maxSupply: ethers.formatEther(maxSupply),
           contractAddress: CONTRACT_CONFIG.contractAddress,
+          ownerAddress: owner,
         },
       };
     } catch (error) {

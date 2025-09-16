@@ -43,7 +43,8 @@ CREATE TABLE IF NOT EXISTS user_token_balances (
     wallet_address TEXT NOT NULL,
     token_balance DECIMAL(20,8) DEFAULT 0,
     last_updated TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),yghjbunUGHJBNM ;'
+    ./}'567TSDZXC
     UNIQUE(user_id, project_id, wallet_address)
 );
 

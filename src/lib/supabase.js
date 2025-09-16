@@ -10,12 +10,17 @@ if (!supabaseUrl || !supabaseAnonKey) {
   );
 }
 
-// Create Supabase client with realtime completely disabled
+// Create Supabase client with enhanced auth configuration
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true,
+    storage: window.localStorage,
+    flowType: "pkce",
+    debug: process.env.NODE_ENV === "development",
+    // Shorter token lifetime for better security
+    tokenRefreshMargin: 60, // Refresh 1 minute before expiry
   },
   realtime: {
     disabled: true,

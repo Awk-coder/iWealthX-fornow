@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import saifImg from "../assets/team/saif.png";
 import azmathImg from "../assets/team/azmath.png";
 import awkImg from "../assets/team/awk.png";
-import helmeyImg from "../assets/team/helmey.png";
 import akramImg from "../assets/team/akram.png";
 import turalayImg from "../assets/team/turalay.png";
 import ezamshahImg from "../assets/team/ezamshah.png";
@@ -213,18 +212,6 @@ const Team = () => {
       description:
         "Full Stack developer diving into blockchain tech. Experienced in building user-facing dApps with modern web tools. Passionate about creating accessible and secure blockchain experiences.",
       companies: [require("../assets/company-logos/iwx.png")],
-    },
-    {
-      name: "Helmey Haris",
-      role: "Investor Relations",
-      image: helmeyImg,
-      description:
-        "Experienced Shariah finance specialist focusing on investor relationships, stakeholder management, and ensuring compliance with Islamic financial principles across operations.",
-      companies: [
-        require("../assets/company-logos/hl.png"),
-        require("../assets/company-logos/hasco.png"),
-        require("../assets/company-logos/hi.png"),
-      ],
     },
   ];
 
